@@ -1,0 +1,28 @@
+.rootWrapper {
+  height: 100vh;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ---------- TEXT ---------- */
+.h2 {
+  font-size: 20px;
+  font-weight: normal;
+  line-height: normal;
+}
+
+.h1 {
+  font-size: 64px;
+  font-weight: normal;
+  line-height: normal;
+}
+
+.textSmall {
+  font-size: 14px;
+  font-weight: normal;
+  line-height: normal;
+}

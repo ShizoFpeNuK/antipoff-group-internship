@@ -1,12 +1,18 @@
+@use "./colors";
+@use "./classes";
+
 body {
-  font-size: 20px;
-  font-weight: 400;
+  font-size: 16px;
+  font-weight: normal;
   font-style: normal;
-  font-family: Arial, Verdana, Tahoma, sans-serif;
+  font-family: Roboto, sans-serif;
   font-optical-sizing: auto;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  line-height: 1.2;
+  line-height: 1.362;
+  height: 100vh;
+  color: var(--black);
+  background-color: var(--white);
 }
 
 ul,
