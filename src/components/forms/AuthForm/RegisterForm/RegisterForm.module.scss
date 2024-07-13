@@ -1,7 +1,18 @@
 .registerForm {
+  width: 500px;
   padding: 16px;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px 0 rgba(#000000, 0.08);
 
   .wrapper {
     margin-bottom: 24px;
+
+    & > h2 ~ label {
+      margin-top: 16px;
+    }
+  }
+
+  .btnSubmit {
+    width: 100%;
   }
 }

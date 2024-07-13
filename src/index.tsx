@@ -6,6 +6,7 @@ import { ROUTES } from "utils/routes";
 import AuthPage from "pages/AuthPage";
 import OurTeamPage from "pages/OurTeamPage";
 import AnyPage from "pages/AnyPage";
+import UserPage from "pages/UserPage";
 
 const router = createBrowserRouter([
 	{
@@ -15,6 +16,10 @@ const router = createBrowserRouter([
 	{
 		path: ROUTES.OUR_TEAM,
 		element: <OurTeamPage />,
+	},
+	{
+		path: `${ROUTES.OUR_TEAM}/:userId`,
+		element: <UserPage />,
 	},
 	{
 		path: ROUTES.ALL,

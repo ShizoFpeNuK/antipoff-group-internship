@@ -3,7 +3,7 @@ import { FC } from "react";
 
 const AuthPage: FC = () => {
 	return (
-		<main className="rootWrapper center">
+		<main className="root_wrapper root_center">
 			<RegisterForm />
 		</main>
 	);

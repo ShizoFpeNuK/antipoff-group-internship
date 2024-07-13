@@ -4,7 +4,7 @@ import { FC, useEffect, useState } from "react";
 
 // TODO: Превратить в хук
 const AnyPage: FC = () => {
-	const [isAuth, setIsAuth] = useState<boolean>(false);
+	const [isAuth, setIsAuth] = useState<boolean>(true);
 	const navigate = useNavigate();
 
 	useEffect(() => {

@@ -21,6 +21,7 @@ li {
 }
 
 a {
+  color: var(--black);
   text-decoration: none;
 }
 
@@ -38,31 +39,9 @@ input,
 button {
   background: none;
   outline: none;
-  font-size: 15px;
-  font-weight: 500;
-  border-radius: 8px;
   border-width: 0;
-  background-color: #f2f2f2;
 }
 
-/* button {
+button {
   cursor: pointer;
-  padding: 7px 12px;
-  transition: background-color 0.2s ease;
-  -webkit-transition: background-color 0.2s ease;
-
-  &:hover {
-    background-color: #e6e6e6;
-  }
 }
-
-input {
-  padding: 8px 12px;
-  transition: background-color 0.2s ease;
-  -webkit-transition: background-color 0.2s ease;
-
-  &:hover,
-  &:focus {
-    background-color: #e6e6e6;
-  }
-} */

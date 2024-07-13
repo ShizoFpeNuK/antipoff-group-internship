@@ -1,0 +1,33 @@
+.wrapper {
+  display: flex;
+  column-gap: 129px;
+  margin: 49px 188px 0;
+
+  .text {
+    text-align: justify;
+    max-width: 630px;
+  }
+
+  .contacts {
+    .contact {
+      display: flex;
+      align-items: center;
+      justify-content: left;
+      column-gap: 8px;
+      margin-bottom: 24px;
+
+      & > svg {
+        width: 24px;
+        height: 24px;
+      }
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      .email {
+        margin-bottom: 2px;
+      }
+    }
+  }
+}

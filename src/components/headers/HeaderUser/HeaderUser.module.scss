@@ -1,0 +1,47 @@
+.header {
+  position: relative;
+  text-align: left;
+  color: var(--white);
+  background-color: var(--violet);
+  padding: 64px 16px;
+
+  .wrapper {
+    display: inline-flex;
+    align-items: center;
+    margin: 0 188px; // Или margin-left: 188px
+    column-gap: 32px;
+
+    .avatar {
+      width: 187px;
+      height: 187px;
+      border-radius: 100%;
+      object-fit: cover;
+    }
+
+    .wrapperText {
+      & > h1 {
+        margin-bottom: 16px;
+      }
+
+      .subtext {
+        font-size: 32px;
+        line-height: normal;
+      }
+    }
+  }
+
+  .buttons {
+    position: absolute;
+    z-index: 5px;
+    display: flex;
+    justify-content: space-between;
+    top: 32px;
+    right: 80px;
+    left: 80px;
+
+    > button {
+      padding: 8px 16px;
+      border: solid 1px var(--white);
+    }
+  }
+}

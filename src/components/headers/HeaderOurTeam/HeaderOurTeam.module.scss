@@ -1,0 +1,24 @@
+.header {
+  position: relative;
+  text-align: center;
+  color: var(--white);
+  background-color: var(--violet);
+  padding: 64px 16px;
+
+  .wrapperText {
+    display: inline-block;
+    max-width: 846px;
+
+    & > h1 {
+      margin-bottom: 16px;
+    }
+  }
+
+  .btnLogout {
+    position: absolute;
+    top: 32px;
+    right: 80px;
+    padding: 8px 16px;
+    border: solid 1px var(--white);
+  }
+}
