@@ -1,8 +1,12 @@
 import MainButton from "components/buttons/MainButton/MainButton";
 import styles from "./HeaderOurTeam.module.scss";
 import { FC } from "react";
+import { useAppDispatch } from "hooks/redux";
+import { clientLogout } from "store/reducers/ActionCreators";
 
 const HeaderOurTeam: FC = () => {
+	const dispatch = useAppDispatch();
+
 	return (
 		<header className={styles.header}>
 			<div className={styles.wrapperText}>
@@ -13,7 +17,12 @@ const HeaderOurTeam: FC = () => {
 				</h2>
 			</div>
 
-			<MainButton className={styles.btnLogout}>Выход</MainButton>
+			<MainButton
+				className={styles.btnLogout}
+				onClick={() => dispatch(clientLogout())}
+			>
+				Выход
+			</MainButton>
 		</header>
 	);
 };

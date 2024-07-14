@@ -1,10 +1,11 @@
 import { ROUTES } from "utils/routes";
-import { useNavigate } from "react-router-dom";
-import { FC, useEffect, useState } from "react";
+import { Outlet, useNavigate } from "react-router-dom";
+import { FC, useEffect } from "react";
+import { useAppSelector } from "hooks/redux";
 
 // TODO: Превратить в хук
 const AnyPage: FC = () => {
-	const [isAuth, setIsAuth] = useState<boolean>(true);
+	const { isAuth } = useAppSelector((state) => state.clientReducer);
 	const navigate = useNavigate();
 
 	useEffect(() => {
@@ -14,9 +15,9 @@ const AnyPage: FC = () => {
 		}
 
 		navigate(ROUTES.OUR_TEAM);
-	});
+	}, [isAuth, navigate]);
 
-	return null;
+	return <Outlet />;
 };
 
 export default AnyPage;

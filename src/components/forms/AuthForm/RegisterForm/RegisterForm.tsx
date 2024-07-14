@@ -1,12 +1,14 @@
 import Input from "components/forms/form-items/Input/Input";
 import InputPassword from "components/forms/form-items/InputPassword/InputPassword";
 import styles from "./RegisterForm.module.scss";
-import { ChangeEventHandler, FC, FormEventHandler, useState } from "react";
+import { ChangeEventHandler, FC, FormEventHandler, useEffect, useState } from "react";
 import MainButton from "components/buttons/MainButton/MainButton";
 import { RULES_EMAIL, RULES_FULL_NAME, RULES_PASSWORD } from "utils/rules/form-rules";
 import { MESSAGE_ERROR } from "utils/rules/message-rules";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ROUTES } from "utils/routes";
+import { useAppDispatch, useAppSelector } from "hooks/redux";
+import { clientRegister } from "store/reducers/ActionCreators";
 
 interface ValuesForm<T> {
 	name: T;
@@ -33,6 +35,9 @@ const RegisterForm: FC = () => {
 	const [values, setValues] = useState<ValuesForm<string>>(defaultValues);
 	const [errors, setErrors] = useState<ValuesForm<boolean>>(defaultErrors);
 	const [messages, setMessages] = useState<ValuesForm<string>>(defaultValues);
+	const navigate = useNavigate();
+	const { isAuth } = useAppSelector((state) => state.clientReducer);
+	const dispatch = useAppDispatch();
 
 	const handleChange: ChangeEventHandler<HTMLInputElement> = ({ target }) => {
 		setValues((values) => ({ ...values, [target.name]: target.value }));
@@ -91,9 +96,20 @@ const RegisterForm: FC = () => {
 		const isNotError = Object.values(err).every((e) => !e);
 
 		if (isNotError) {
-			//TODO: Отправка
+			dispatch(
+				clientRegister({
+					email: values.email,
+					password: values.password,
+				}),
+			);
 		}
 	};
+
+	useEffect(() => {
+		if (isAuth) {
+			navigate(ROUTES.OUR_TEAM);
+		}
+	}, [isAuth, navigate]);
 
 	return (
 		<form
@@ -138,7 +154,12 @@ const RegisterForm: FC = () => {
 			</div>
 
 			<div className={styles.buttons}>
-				<Link className={styles.link} to={ROUTES.SING_IN}>Уже есть аккаунт?</Link>
+				<Link
+					className={styles.link}
+					to={ROUTES.SING_IN}
+				>
+					Уже есть аккаунт?
+				</Link>
 				<MainButton
 					className={styles.btnSubmit}
 					type="submit"

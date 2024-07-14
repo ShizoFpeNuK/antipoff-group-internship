@@ -2,11 +2,13 @@ import MainButton from "components/buttons/MainButton/MainButton";
 import styles from "./LoginForm.module.scss";
 import Input from "components/forms/form-items/Input/Input";
 import InputPassword from "components/forms/form-items/InputPassword/InputPassword";
-import { ChangeEventHandler, FC, FormEventHandler, useState } from "react";
-import { Link } from "react-router-dom";
+import { ChangeEventHandler, FC, FormEventHandler, useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { ROUTES } from "utils/routes";
 import { RULES_EMAIL } from "utils/rules/form-rules";
 import { MESSAGE_ERROR } from "utils/rules/message-rules";
+import { useAppDispatch, useAppSelector } from "hooks/redux";
+import { clientLogin } from "store/reducers/ActionCreators";
 
 interface ValuesForm<T> {
 	email: T;
@@ -27,6 +29,9 @@ const LoginForm: FC = () => {
 	const [values, setValues] = useState<ValuesForm<string>>(defaultValues);
 	const [errors, setErrors] = useState<ValuesForm<boolean>>(defaultErrors);
 	const [messages, setMessages] = useState<ValuesForm<string>>(defaultValues);
+	const navigate = useNavigate();
+	const { isAuth } = useAppSelector((state) => state.clientReducer);
+	const dispatch = useAppDispatch();
 
 	const handleChange: ChangeEventHandler<HTMLInputElement> = ({ target }) => {
 		setValues((values) => ({ ...values, [target.name]: target.value }));
@@ -59,9 +64,20 @@ const LoginForm: FC = () => {
 		const isNotError = Object.values(err).every((e) => !e);
 
 		if (isNotError) {
-			//TODO: Отправка
+			dispatch(
+				clientLogin({
+					email: values.email,
+					password: values.password,
+				}),
+			);
 		}
 	};
+
+	useEffect(() => {
+		if (isAuth) {
+			navigate(ROUTES.OUR_TEAM);
+		}
+	}, [isAuth, navigate]);
 
 	return (
 		<form

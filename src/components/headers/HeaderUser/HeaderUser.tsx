@@ -1,14 +1,14 @@
 import MainButton from "components/buttons/MainButton/MainButton";
 import styles from "./HeaderUser.module.scss";
 import { FC } from "react";
+import { useAppDispatch } from "hooks/redux";
+import { clientLogout } from "store/reducers/ActionCreators";
 
 const HeaderUser: FC = () => {
+	const dispatch = useAppDispatch();
+
 	const handleClickBack = () => {
 		console.log(1111);
-	};
-
-	const handleClickLogout = () => {
-		console.log(2222);
 	};
 
 	return (
@@ -35,7 +35,7 @@ const HeaderUser: FC = () => {
 				</MainButton>
 				<MainButton
 					className={styles.btnLogout}
-					onClick={handleClickLogout}
+					onClick={() => dispatch(clientLogout())}
 				>
 					Выход
 				</MainButton>

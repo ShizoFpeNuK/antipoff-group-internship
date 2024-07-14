@@ -9,14 +9,14 @@ export const RULES_FULL_NAME = {
 
 export const RULES_EMAIL = {
 	pattern: {
-		value: new RegExp(/^[a-zA-Z\d]+@[a-z\.]+\.[a-z]+$/),
+		value: new RegExp(/^[a-zA-Z\d.]+@[a-z.]+\.[a-z]+$/),
 		message: MESSAGE_ERROR.EMAIL,
 	},
 };
 
 export const RULES_PASSWORD = {
 	pattern: {
-		value: new RegExp(/^[a-zA-Z!@#:<>"{}\[\]\$%\^\&*\)\(+=._-\d]+$/),
+		value: new RegExp(/^[a-zA-Z!@#:<>"{}[\]$%^&*)(+=._-\d]+$/),
 		message: MESSAGE_ERROR.PASSWORD,
 	},
 	minLength: {
