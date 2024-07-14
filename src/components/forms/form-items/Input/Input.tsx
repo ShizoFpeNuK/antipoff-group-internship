@@ -3,18 +3,18 @@ import { FC, InputHTMLAttributes } from "react";
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 	label?: string;
-	isError?: boolean;
+	textError?: string;
 }
 
-const Input: FC<InputProps> = ({ label, className = "", isError, ...props }) => {
+const Input: FC<InputProps> = ({ label, className = "", textError, ...props }) => {
 	return (
 		<label className={styles.label}>
 			{label && <span className={styles.title}>{label}</span>}
 			<input
 				{...props}
-				className={`${styles.input} ${isError && styles.error}`}
+				className={`${styles.input} ${textError ? styles.error : ""}`}
 			/>
-			{isError && <span className={styles.textError}>Ошибка</span>}
+			{textError && <span className={styles.textError}>{textError}</span>}
 		</label>
 	);
 };

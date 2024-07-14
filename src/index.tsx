@@ -1,18 +1,17 @@
 import "./index.scss";
 import ReactDOM from "react-dom/client";
 import { StrictMode } from "react";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import { ROUTES } from "utils/routes";
-import AuthPage from "pages/AuthPage";
+import SingUpPage from "pages/SingUpPage";
 import OurTeamPage from "pages/OurTeamPage";
 import AnyPage from "pages/AnyPage";
 import UserPage from "pages/UserPage";
+import SingInPage from "pages/SingInPage";
 
 const router = createBrowserRouter([
-	{
-		path: ROUTES.AUTH,
-		element: <AuthPage />,
-	},
+	{ path: ROUTES.SING_UP, element: <SingUpPage /> },
+	{ path: ROUTES.SING_IN, element: <SingInPage /> },
 	{
 		path: ROUTES.OUR_TEAM,
 		element: <OurTeamPage />,

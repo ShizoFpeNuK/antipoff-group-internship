@@ -5,10 +5,10 @@ import { ReactComponent as EyeOnIcon } from "assets/svg/eye-on.svg";
 
 interface InputPasswordProps extends InputHTMLAttributes<HTMLInputElement> {
 	label?: string;
-	isError?: boolean;
+	textError?: string;
 }
 
-const InputPassword: FC<InputPasswordProps> = ({ label, className = "", isError, ...props }) => {
+const InputPassword: FC<InputPasswordProps> = ({ label, className = "", textError, ...props }) => {
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 	const inputRef = useRef<HTMLInputElement | null>(null);
 
@@ -23,7 +23,7 @@ const InputPassword: FC<InputPasswordProps> = ({ label, className = "", isError,
 	return (
 		<label className={styles.label}>
 			{label && <span>{label}</span>}
-			<div className={`${styles.wrapper} ${isError && styles.error}`}>
+			<div className={`${styles.wrapper} ${textError && styles.error}`}>
 				<input
 					{...props}
 					ref={inputRef}
@@ -32,7 +32,7 @@ const InputPassword: FC<InputPasswordProps> = ({ label, className = "", isError,
 				/>
 				<span onClick={() => setIsOpen(!isOpen)}>{isOpen ? <EyeOnIcon /> : <EyeOffIcon />}</span>
 			</div>
-      {isError && <span className={styles.textError}>Ошибка</span>}
+			{textError && <span className={styles.textError}>{textError}</span>}
 		</label>
 	);
 };

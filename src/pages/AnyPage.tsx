@@ -9,7 +9,7 @@ const AnyPage: FC = () => {
 
 	useEffect(() => {
 		if (!isAuth) {
-			navigate(ROUTES.AUTH);
+			navigate(ROUTES.SING_IN);
 			return;
 		}
 

@@ -9,7 +9,7 @@ const MainButton: FC<MainButtonProps> = ({ children, className, ...props }) => {
 	return (
 		<button
 			{...props}
-			className={`${className} ${styles.btn}`}
+			className={`root_text ${styles.btn} ${className}`}
 		>
 			{children}
 		</button>

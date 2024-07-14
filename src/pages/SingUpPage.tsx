@@ -1,7 +1,7 @@
 import RegisterForm from "components/forms/AuthForm/RegisterForm/RegisterForm";
 import { FC } from "react";
 
-const AuthPage: FC = () => {
+const SingUpPage: FC = () => {
 	return (
 		<main className="root_wrapper root_center">
 			<RegisterForm />
@@ -9,4 +9,4 @@ const AuthPage: FC = () => {
 	);
 };
 
-export default AuthPage;
+export default SingUpPage;
