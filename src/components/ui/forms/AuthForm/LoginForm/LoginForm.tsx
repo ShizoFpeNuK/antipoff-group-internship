@@ -8,7 +8,7 @@ import { ROUTES } from "utils/routes";
 import { RULES_EMAIL } from "utils/rules/form-rules";
 import { MESSAGE_ERROR } from "utils/rules/message-rules";
 import { useAppDispatch, useAppSelector } from "hooks/redux";
-import { clientLogin } from "store/reducers/ActionCreators";
+import { clientLogin } from "store/actions/ActionCreators";
 
 interface ValuesForm<T> {
 	email: T;

@@ -2,7 +2,7 @@ import MainButton from "components/ui/buttons/MainButton/MainButton";
 import styles from "./HeaderOurTeam.module.scss";
 import { FC } from "react";
 import { useAppDispatch } from "hooks/redux";
-import { clientLogout } from "store/reducers/ActionCreators";
+import { clientLogout } from "store/actions/ActionCreators";
 
 const HeaderOurTeam: FC = () => {
 	const dispatch = useAppDispatch();

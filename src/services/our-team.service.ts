@@ -7,14 +7,16 @@ interface IParams {
 	per_page?: number;
 }
 
+const PATH_DEFAULT = "/users";
+
 export const ourTeamApi = createApi({
 	reducerPath: "ourTeam",
 	baseQuery: axiosBaseQuery(),
-	tagTypes: ["Team"],
+	tagTypes: ["Team", "User"],
 	endpoints: (build) => ({
 		getAll: build.query<IOurTeam, IParams | void>({
 			query: (params = { page: 1, per_page: 4 }) => ({
-				url: "/users",
+				url: PATH_DEFAULT,
 				params,
 			}),
 			providesTags: (result) =>
@@ -27,8 +29,16 @@ export const ourTeamApi = createApi({
 		}),
 		getUserById: build.query<IGetUser, number>({
 			query: (id) => ({
-				url: `/users/${id}`,
+				url: `${PATH_DEFAULT}/${id}`,
 			}),
+			providesTags: (result, error, id) => [{ type: "User", id }],
+		}),
+		updateAvatarById: build.mutation<any, number>({
+			query: (id) => ({
+				url: `${PATH_DEFAULT}/${id}`,
+				method: "PUT",
+			}),
+			invalidatesTags: (result, error, id) => [{ type: "User", id }],
 		}),
 	}),
 });

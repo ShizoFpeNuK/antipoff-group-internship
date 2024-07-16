@@ -1,8 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { clientLogin, clientLogout, clientRegister } from "./ActionCreators";
-import { deleteCookie, setCookie } from "utils/helpers/cookies";
-import { NAME_COOKIES } from "utils/helpers/name-cookies";
-import { NAME_LOCALSTORAGE } from "utils/helpers/name-localStorage";
+import { clientLogin, clientLogout, clientRegister } from "../actions/ActionCreators";
 
 interface IClientState {
 	isAuth: boolean;
@@ -20,25 +17,22 @@ export const clientSlice = createSlice({
 	name: "client",
 	initialState,
 	reducers: {
-		setIsAuth(state, action: PayloadAction<boolean>) {
+		setIsAuth: (state, action: PayloadAction<boolean>) => {
 			state.isAuth = action.payload;
 		},
-		setIsLoading(state, action: PayloadAction<boolean>) {
+		setIsLoading: (state, action: PayloadAction<boolean>) => {
 			state.isLoading = action.payload;
 		},
-		setIsGetLocalStorage(state, action: PayloadAction<boolean>) {
+		setIsGetLocalStorage: (state, action: PayloadAction<boolean>) => {
 			state.isGetLocalStorage = action.payload;
 		},
 	},
 	extraReducers: (builder) => {
-		builder.addCase(clientRegister.fulfilled, (state, { payload: { token } }) => {
-			localStorage.setItem(NAME_LOCALSTORAGE.IS_AUTH, "true");
-			setCookie(NAME_COOKIES.TOKEN, token, { secure: true });
+		builder.addCase(clientRegister.fulfilled, (state) => {
 			state.isAuth = true;
 			state.isLoading = false;
 		});
 		builder.addCase(clientRegister.rejected, (state) => {
-			localStorage.setItem(NAME_LOCALSTORAGE.IS_AUTH, "false");
 			state.isAuth = false;
 			state.isLoading = false;
 		});
@@ -47,14 +41,11 @@ export const clientSlice = createSlice({
 			state.isLoading = true;
 		});
 
-		builder.addCase(clientLogin.fulfilled, (state, { payload: { token } }) => {
-			localStorage.setItem(NAME_LOCALSTORAGE.IS_AUTH, "true");
-			setCookie(NAME_COOKIES.TOKEN, token, { secure: true });
+		builder.addCase(clientLogin.fulfilled, (state) => {
 			state.isAuth = true;
 			state.isLoading = false;
 		});
 		builder.addCase(clientLogin.rejected, (state) => {
-			localStorage.setItem(NAME_LOCALSTORAGE.IS_AUTH, "false");
 			state.isAuth = false;
 			state.isLoading = false;
 		});
@@ -64,8 +55,6 @@ export const clientSlice = createSlice({
 		});
 
 		builder.addCase(clientLogout.fulfilled, (state) => {
-			localStorage.setItem(NAME_LOCALSTORAGE.IS_AUTH, "false");
-			deleteCookie(NAME_COOKIES.TOKEN);
 			state.isAuth = false;
 			state.isLoading = false;
 		});

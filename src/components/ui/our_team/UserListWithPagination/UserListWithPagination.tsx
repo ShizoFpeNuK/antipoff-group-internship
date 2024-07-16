@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from "react";
 import UserList from "../UserList/UserList";
-import Pagination from "components/ui/paginations/Pagination";
+import Pagination from "components/ui/paginations/Pagination/Pagination";
 import { useSearchParams } from "react-router-dom";
 import { ourTeamApi } from "services/our-team.service";
 

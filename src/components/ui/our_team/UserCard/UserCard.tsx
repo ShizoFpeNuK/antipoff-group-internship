@@ -25,7 +25,9 @@ const UserCard: FC<UserCardProps> = ({ user }) => {
 			</div>
 
 			<div className={styles.buttons}>
-				<HearthIcon className={styles.hearth} />
+				<button className={styles.btnLike} data-btn-like>
+					<HearthIcon />
+				</button>
 			</div>
 		</div>
 	);

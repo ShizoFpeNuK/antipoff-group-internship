@@ -7,6 +7,17 @@
   font-weight: 500;
   margin-top: 56px;
 
+  .btnPagination {
+    border-radius: 8px;
+    padding: 10px;
+
+    &.btnActive {
+      cursor: not-allowed;
+      color: var(--white);
+      background-color: var(--violet);
+    }
+  }
+
   .arrow {
     cursor: pointer;
     display: flex;

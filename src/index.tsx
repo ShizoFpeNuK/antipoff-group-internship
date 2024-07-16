@@ -9,7 +9,7 @@ import AnyPage from "pages/AnyPage";
 import UserPage from "pages/UserPage";
 import SingInPage from "pages/SingInPage";
 import { Provider } from "react-redux";
-import { store } from "store/store";
+import { appStore } from "store/store";
 import StoreInitializer from "components/StoreInitializer/StoreInitializer";
 import AuthProvider from "components/providers/AuthProvider";
 import ErrorPage from "pages/error-pages/ErrorPage/ErrorPage";
@@ -45,7 +45,7 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 root.render(
 	<StrictMode>
-		<Provider store={store}>
+		<Provider store={appStore}>
 			<StoreInitializer />
 			<RouterProvider router={router} />
 		</Provider>

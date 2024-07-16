@@ -8,7 +8,7 @@ import { MESSAGE_ERROR } from "utils/rules/message-rules";
 import { Link, useNavigate } from "react-router-dom";
 import { ROUTES } from "utils/routes";
 import { useAppDispatch, useAppSelector } from "hooks/redux";
-import { clientRegister } from "store/reducers/ActionCreators";
+import { clientRegister } from "store/actions/ActionCreators";
 
 interface ValuesForm<T> {
 	name: T;

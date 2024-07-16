@@ -28,16 +28,35 @@
   }
 
   .buttons {
-    text-align: right;
+    display: flex;
+    justify-content: flex-end;
 
-    .hearth {
-      height: 28px;
-      width: 30px;
-      stroke: var(--black);
+    .btnLike {
+      display: block;
+      height: auto;
+      border-radius: 4px;
+      background-color: var(--gray-light);
+
+      & > svg {
+        display: block;
+        height: 28px;
+        width: 30px;
+        stroke: var(--black);
+        fill: transparent;
+      }
     }
   }
 
   &:hover {
     border-color: var(--black);
+  }
+
+  &[data-liked] {
+    .btnLike {
+      & > svg {
+        stroke: var(--violet);
+        fill: var(--violet);
+      }
+    }
   }
 }
