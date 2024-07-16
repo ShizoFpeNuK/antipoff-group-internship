@@ -1,8 +1,8 @@
-import Input from "components/forms/form-items/Input/Input";
-import InputPassword from "components/forms/form-items/InputPassword/InputPassword";
+import Input from "components/ui/forms/form-items/Input/Input";
+import InputPassword from "components/ui/forms/form-items/InputPassword/InputPassword";
 import styles from "./RegisterForm.module.scss";
 import { ChangeEventHandler, FC, FormEventHandler, useEffect, useState } from "react";
-import MainButton from "components/buttons/MainButton/MainButton";
+import MainButton from "components/ui/buttons/MainButton/MainButton";
 import { RULES_EMAIL, RULES_FULL_NAME, RULES_PASSWORD } from "utils/rules/form-rules";
 import { MESSAGE_ERROR } from "utils/rules/message-rules";
 import { Link, useNavigate } from "react-router-dom";

@@ -1,5 +1,5 @@
 import { ROUTES } from "utils/routes";
-import { Outlet, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { FC, useEffect } from "react";
 import { useAppSelector } from "hooks/redux";
 
@@ -17,7 +17,7 @@ const AnyPage: FC = () => {
 		navigate(ROUTES.OUR_TEAM);
 	}, [isAuth, navigate]);
 
-	return <Outlet />;
+	return null;
 };
 
 export default AnyPage;

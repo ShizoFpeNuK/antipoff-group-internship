@@ -1,4 +1,4 @@
-import MainButton from "components/buttons/MainButton/MainButton";
+import MainButton from "components/ui/buttons/MainButton/MainButton";
 import styles from "./HeaderOurTeam.module.scss";
 import { FC } from "react";
 import { useAppDispatch } from "hooks/redux";

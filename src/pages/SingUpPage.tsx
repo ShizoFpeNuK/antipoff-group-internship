@@ -1,4 +1,4 @@
-import RegisterForm from "components/forms/AuthForm/RegisterForm/RegisterForm";
+import RegisterForm from "components/ui/forms/AuthForm/RegisterForm/RegisterForm";
 import { FC } from "react";
 
 const SingUpPage: FC = () => {

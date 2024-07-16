@@ -1,14 +1,26 @@
-import MainButton from "components/buttons/MainButton/MainButton";
+import MainButton from "components/ui/buttons/MainButton/MainButton";
 import styles from "./HeaderUser.module.scss";
 import { FC } from "react";
 import { useAppDispatch } from "hooks/redux";
 import { clientLogout } from "store/reducers/ActionCreators";
+import { IUser } from "models/our-team.model";
+import { useNavigate } from "react-router-dom";
+import { ROUTES } from "utils/routes";
 
-const HeaderUser: FC = () => {
+interface HeaderUserProps {
+	user: IUser;
+}
+
+const HeaderUser: FC<HeaderUserProps> = ({ user }) => {
 	const dispatch = useAppDispatch();
+	const navigate = useNavigate();
 
 	const handleClickBack = () => {
-		console.log(1111);
+		if (window.history.length > 1) {
+			navigate(-1);
+		} else {
+			navigate(ROUTES.OUR_TEAM);
+		}
 	};
 
 	return (
@@ -16,12 +28,12 @@ const HeaderUser: FC = () => {
 			<div className={styles.wrapper}>
 				<img
 					className={styles.avatar}
-					src="/img/avatar.png"
-					alt=""
+					src={user.avatar || "/img/avatar.png"}
+					alt={`${user.first_name} ${user.last_name}` || "Пользователь"}
 				/>
 
 				<div className={styles.wrapperText}>
-					<h1 className="root_h1">Артур Королёв</h1>
+					<h1 className="root_h1">{`${user.first_name} ${user.last_name}`}</h1>
 					<div className={styles.subtext}>Партнер</div>
 				</div>
 			</div>

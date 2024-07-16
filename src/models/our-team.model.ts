@@ -13,3 +13,7 @@ export interface IOurTeam {
 	total_pages: number;
 	data: IUser[];
 }
+
+export interface IGetUser {
+	data: IUser;
+}

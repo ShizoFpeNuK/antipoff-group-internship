@@ -2,8 +2,13 @@ import styles from "./UserInfo.module.scss";
 import { FC } from "react";
 import { ReactComponent as TelIcon } from "assets/svg/telephone.svg";
 import { ReactComponent as EmailIcon } from "assets/svg/email.svg";
+import { IUser } from "models/our-team.model";
 
-const UserInfo: FC = () => {
+interface UserInfoProps {
+	user: IUser;
+}
+
+const UserInfo: FC<UserInfoProps> = ({ user }) => {
 	return (
 		<section className={styles.wrapper}>
 			<p className={styles.text}>
@@ -36,9 +41,9 @@ const UserInfo: FC = () => {
 					<EmailIcon />
 					<a
 						className={styles.email}
-						href="mailto:sykfafkar@gmail.com"
+						href={`mailto:${user.email}`}
 					>
-						sykfafkar@gmail.com
+						{user.email}
 					</a>
 				</div>
 			</div>

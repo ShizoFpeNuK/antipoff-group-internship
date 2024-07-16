@@ -7,13 +7,11 @@ const rootReducer = combineReducers({
 	[ourTeamApi.reducerPath]: ourTeamApi.reducer,
 });
 
-export const setupStore = () =>
-	configureStore({
+export const store = configureStore({
 		reducer: rootReducer,
 		middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(ourTeamApi.middleware),
 		devTools: true,
 	});
 
 export type RootState = ReturnType<typeof rootReducer>;
-export type AppStore = ReturnType<typeof setupStore>;
-export type AppDispatch = AppStore["dispatch"];
+export type AppDispatch = typeof store.dispatch;

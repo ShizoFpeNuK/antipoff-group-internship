@@ -7,11 +7,13 @@ import { NAME_LOCALSTORAGE } from "utils/helpers/name-localStorage";
 interface IClientState {
 	isAuth: boolean;
 	isLoading: boolean;
+	isGetLocalStorage: boolean;
 }
 
 const initialState: IClientState = {
 	isAuth: false,
 	isLoading: false,
+	isGetLocalStorage: false,
 };
 
 export const clientSlice = createSlice({
@@ -20,6 +22,12 @@ export const clientSlice = createSlice({
 	reducers: {
 		setIsAuth(state, action: PayloadAction<boolean>) {
 			state.isAuth = action.payload;
+		},
+		setIsLoading(state, action: PayloadAction<boolean>) {
+			state.isLoading = action.payload;
+		},
+		setIsGetLocalStorage(state, action: PayloadAction<boolean>) {
+			state.isGetLocalStorage = action.payload;
 		},
 	},
 	extraReducers: (builder) => {

@@ -1,14 +1,12 @@
-import HeaderOurTeam from "components/headers/HeaderOurTeam/HeaderOurTeam";
-import UserList from "components/our_team/UserList/UserList";
-import { FC, useEffect } from "react";
-import { ourTeamApi } from "services/our-team.service";
+import HeaderOurTeam from "components/ui/headers/HeaderOurTeam/HeaderOurTeam";
+import UserListWithPagination from "components/ui/our_team/UserListWithPagination/UserListWithPagination";
+import { COUNT_PER_PAGE } from "index";
+import { IOurTeam } from "models/our-team.model";
+import { FC, Suspense } from "react";
+import { Await, useLoaderData } from "react-router-dom";
 
 const OurTeamPage: FC = () => {
-	const { data: team } = ourTeamApi.useGetAllOurTeamQuery();
-
-	useEffect(() => {
-		console.log(team);
-	}, [team]);
+	const { user } = useLoaderData() as { user: IOurTeam };
 
 	return (
 		<main
@@ -16,7 +14,11 @@ const OurTeamPage: FC = () => {
 			style={{ paddingBottom: 56 }}
 		>
 			<HeaderOurTeam />
-			<UserList />
+			<Suspense fallback={<p>Loading...</p>}>
+				<Await resolve={user}>
+					<UserListWithPagination countPerPage={COUNT_PER_PAGE} />
+				</Await>
+			</Suspense>
 		</main>
 	);
 };
