@@ -3,9 +3,12 @@ import styles from "./HeaderOurTeam.module.scss";
 import { FC } from "react";
 import { useAppDispatch } from "hooks/redux";
 import { clientLogout } from "store/actions/ActionCreators";
+import { ReactComponent as ExitIcon } from "assets/svg/exit.svg";
+import { useResizeWidth } from "hooks/useResizeWidth";
 
 const HeaderOurTeam: FC = () => {
 	const dispatch = useAppDispatch();
+	const windowWidth = useResizeWidth();
 
 	return (
 		<header className={styles.header}>
@@ -17,12 +20,21 @@ const HeaderOurTeam: FC = () => {
 				</h2>
 			</div>
 
-			<MainButton
-				className={styles.btnLogout}
-				onClick={() => dispatch(clientLogout())}
-			>
-				Выход
-			</MainButton>
+			{windowWidth > 1024 ? (
+				<MainButton
+					className={styles.btnLogout}
+					onClick={() => dispatch(clientLogout())}
+				>
+					Выход
+				</MainButton>
+			) : (
+				<button
+					className={styles.smallBtnLogout}
+					onClick={() => dispatch(clientLogout())}
+				>
+					<ExitIcon />
+				</button>
+			)}
 		</header>
 	);
 };

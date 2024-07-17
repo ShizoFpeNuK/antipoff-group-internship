@@ -18,11 +18,11 @@ export const teamLoader = ({ request }: LoaderFunctionArgs, countPerPage?: numbe
 	return defer({ user });
 };
 
-export const userLoader = ({ request, params }: LoaderFunctionArgs<Params<"userId">>) => {
+export const userLoader = ({ params }: LoaderFunctionArgs<Params<"userId">>) => {
 	const id = Number(params.userId);
 
 	if (!Number.isInteger(id)) {
-		throw json<IErrorResponse>({ message: "Ошибка userId" }, { status: 404 });
+		throw json<IErrorResponse>({ message: "Ошибка userId" }, { status: 400 });
 	}
 
 	const data = appStore.dispatch(ourTeamApi.endpoints.getUserById.initiate(id));

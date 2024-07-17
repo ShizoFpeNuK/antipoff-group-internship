@@ -15,7 +15,7 @@ interface UserListProps {
 const UserList: FC<UserListProps> = ({ users }) => {
 	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
-	const listRef = useRef<HTMLElement | null>(null);
+	const listRef = useRef<HTMLDivElement | null>(null);
 	const { usersLikeId } = useAppSelector((state) => state.usersLikeReducer);
 	const { addUserLikeId, removeUserLikeId } = usersLikeSlice.actions;
 
@@ -72,7 +72,7 @@ const UserList: FC<UserListProps> = ({ users }) => {
 	}, [users, usersLikeId]);
 
 	return (
-		<section
+		<div
 			className={styles.list}
 			onClick={handleClick}
 			ref={listRef}
@@ -83,7 +83,7 @@ const UserList: FC<UserListProps> = ({ users }) => {
 					key={user.id}
 				/>
 			))}
-		</section>
+		</div>
 	);
 };
 

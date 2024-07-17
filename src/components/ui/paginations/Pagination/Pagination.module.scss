@@ -9,31 +9,72 @@
 
   .btnPagination {
     border-radius: 8px;
-    padding: 10px;
+    padding: 9px;
+    border: solid 1px transparent;
+    transition: border-color 0.1s ease-in;
+
+    @media (hover: hover) {
+      &:hover {
+        border-color: var(--violet);
+      }
+    }
+
+    @media (hover: none) {
+      &:active {
+        border-color: var(--violet);
+      }
+    }
 
     &.btnActive {
-      cursor: not-allowed;
       color: var(--white);
       background-color: var(--violet);
     }
   }
 
   .arrow {
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    position: relative;
+    z-index: 1;
+    line-height: 0;
     border-radius: 8px;
-
-    padding: 10px;
     border: solid 1px var(--black);
+    transition:
+      border-color 0.1s ease-in,
+      fill 0.1s linear;
+
+    & > svg {
+      position: relative;
+      z-index: -1;
+      fill: var(--black);
+      width: 40px;
+      height: 40px;
+    }
+
+    @media (hover: hover) {
+      &:hover {
+        border-color: var(--violet);
+
+        & > svg {
+          fill: var(--violet);
+        }
+      }
+    }
+
+    @media (hover: none) {
+      &:active {
+        border-color: var(--violet);
+
+        & > svg {
+          fill: var(--violet);
+        }
+      }
+    }
 
     &:disabled {
-      cursor: not-allowed;
-      background-color: transparent;
+      border-color: var(--gray);
 
-      &:hover {
-        background-color: transparent;
+      & > svg {
+        z-index: -1;
+        fill: var(--gray);
       }
     }
   }

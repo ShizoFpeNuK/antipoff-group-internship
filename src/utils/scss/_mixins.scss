@@ -1,0 +1,31 @@
+@mixin hover-link($line: underline, $color: var(--violet), $duration: 0.1s, $timing-func: linear) {
+  text-decoration-line: $line;
+  -webkit-text-decoration-line: $line;
+  -moz-text-decoration-line: $line;
+
+  text-decoration-color: transparent;
+  -webkit-text-decoration-color: transparent;
+  -moz-text-decoration-color: transparent;
+
+  transition:
+    color $duration $timing-func,
+    text-decoration-color $duration $timing-func;
+
+  @media (hover: hover) {
+    &:hover {
+      color:  $color;
+      text-decoration-color:  $color;
+      -webkit-text-decoration-color:  $color;
+      -moz-text-decoration-color:  $color;
+    }
+  }
+
+  @media (hover: none) {
+    &:active {
+      color:  $color;
+      text-decoration-color:  $color;
+      -webkit-text-decoration-color:  $color;
+      -moz-text-decoration-color:  $color;
+    }
+  }
+}

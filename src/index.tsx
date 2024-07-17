@@ -3,17 +3,17 @@ import ReactDOM from "react-dom/client";
 import { StrictMode } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ROUTES } from "utils/routes";
-import SingUpPage from "pages/SingUpPage";
+import SingUpPage from "pages/auth-pages/SingUpPage";
 import OurTeamPage from "pages/OurTeamPage";
 import AnyPage from "pages/AnyPage";
 import UserPage from "pages/UserPage";
-import SingInPage from "pages/SingInPage";
+import SingInPage from "pages/auth-pages/SingInPage";
 import { Provider } from "react-redux";
 import { appStore } from "store/store";
 import StoreInitializer from "components/StoreInitializer/StoreInitializer";
 import AuthProvider from "components/providers/AuthProvider";
-import ErrorPage from "pages/error-pages/ErrorPage/ErrorPage";
 import { teamLoader, userLoader } from "loaders/loaders";
+import ErrorBoundary from "components/ErrorBoundary/ErrorBoundary";
 
 export const COUNT_PER_PAGE = 4;
 
@@ -32,7 +32,7 @@ const router = createBrowserRouter([
 				path: `${ROUTES.OUR_TEAM}/:userId`,
 				element: <UserPage />,
 				loader: userLoader,
-				errorElement: <ErrorPage />,
+				errorElement: <ErrorBoundary />,
 			},
 		],
 	},

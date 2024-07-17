@@ -1,7 +1,35 @@
 .btn {
+  position: relative;
   color: var(--white);
-  background-color: var(--violet);
+  padding: 13px;
   border-radius: 8px;
-  padding-top: 13px;
-  padding-bottom: 13px;
+  background-color: var(--violet);
+  transition: background-color 1s linear;
+  z-index: 1;
+  
+  &::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    opacity: 0;
+    border-radius: 8px;
+    background: linear-gradient(to right, var(--violet), rgb(85, 18, 172));
+    transition: opacity 0.1s linear;
+  }
+
+  @media (hover: hover) {
+    &:hover::after {
+      opacity: 1;
+    }
+  }
+
+  @media (hover: none) {
+    &:active::after {
+      opacity: 1;
+    }
+  }
 }

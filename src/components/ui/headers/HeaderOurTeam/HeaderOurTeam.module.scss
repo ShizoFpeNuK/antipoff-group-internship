@@ -1,3 +1,5 @@
+@use "utils/scss/variables" as size;
+
 .header {
   position: relative;
   text-align: center;
@@ -12,6 +14,10 @@
     & > h1 {
       margin-bottom: 16px;
     }
+
+    & > h2 {
+      color: var(--gray-light);
+    }
   }
 
   .btnLogout {
@@ -20,6 +26,83 @@
     top: 32px;
     right: 80px;
     padding: 8px 16px;
-    border: solid 1px var(--white);
+    color: var(--gray-light);
+    border: solid 1px var(--gray-light);
+  }
+
+  .smallBtnLogout {
+    position: absolute;
+    line-height: 0;
+    z-index: 5;
+    top: 12px;
+    right: 16px;
+
+    & > svg {
+      fill: var(--gray-light);
+      transition: fill 0.1s linear;
+    }
+
+    @media (hover: hover) {
+      &:hover > svg {
+        fill: var(--gray);
+      }
+    }
+
+    @media (hover: none) {
+      &:active > svg {
+        fill: var(--gray);
+      }
+    }
+  }
+}
+
+@media screen and (max-width: size.$xxl) {
+  .header {
+    .btnLogout {
+      right: 60px;
+    }
+  }
+}
+
+@media screen and (max-width: size.$xl) {
+  .header {
+    .btnLogout {
+      right: 40px;
+    }
+  }
+}
+
+@media screen and (max-width: size.$lg) {
+  .header {
+    .wrapperText {
+      & > h1 {
+        font-size: 52px;
+      }
+
+      & > h2 {
+        font-size: 16px;
+        line-height: normal;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: size.$md) {
+  .header {
+    .wrapperText {
+      & > h1 {
+        font-size: 46px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: size.$sm) {
+  .header {
+    .wrapperText {
+      & > h1 {
+        font-size: 36px;
+      }
+    }
   }
 }

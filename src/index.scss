@@ -40,6 +40,10 @@ button {
   border-width: 0;
 }
 
+input {
+  user-select: none;
+}
+
 button {
   cursor: pointer;
 }

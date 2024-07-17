@@ -1,0 +1,29 @@
+.wrapper {
+  --margin-lr: 80px;
+  padding: 48px var(--margin-lr) 32px;
+
+  & > [id="main-loader"] {
+    height: 265px;
+  }
+
+  @media screen and (max-width: 1440px) {
+    --margin-lr: 40px;
+
+    & > [id="main-loader"] {
+      height: 550px;
+    }
+  }
+
+  @media screen and (max-width: 1367px) {
+    --margin-lr: 35px;
+  }
+}
+
+
+.error {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 250px;
+}

@@ -116,23 +116,28 @@ const RegisterForm: FC = () => {
 			className={styles.registerForm}
 			onSubmit={handleSubmit}
 			noValidate
+			autoComplete="on"
 		>
 			<div className={styles.wrapper}>
 				<h2 className="root_h2">Регистрация</h2>
 				<Input
 					name="name"
+					id="name"
 					label="Имя"
 					type="text"
 					placeholder="Иван"
 					required
+					autoComplete="name"
 					onChange={handleChange}
 					textError={errors.name ? messages.name : ""}
 				/>
 				<Input
 					name="email"
+					id="email"
 					label="Электронная почта"
 					type="email"
 					placeholder="example@mail.ru"
+					autoComplete="email"
 					required
 					onChange={handleChange}
 					textError={errors.email ? messages.email : ""}
@@ -141,13 +146,17 @@ const RegisterForm: FC = () => {
 					name="password"
 					label="Пароль"
 					required
+					autoComplete="off"
 					onChange={handleChange}
+          placeholder="*******"
 					textError={errors.password ? messages.password : ""}
 				/>
 				<InputPassword
 					name="confirm_password"
 					label="Подтвердите пароль"
 					required
+					autoComplete="off"
+          placeholder="*******"
 					onChange={handleChange}
 					textError={errors.confirm_password ? messages.confirm_password : ""}
 				/>

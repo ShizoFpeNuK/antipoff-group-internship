@@ -1,7 +1,14 @@
-.wrapper {
+@use "utils/scss/mixins" as mix;
+@use "utils/scss/variables" as size;
+
+$svg_wh: 24px;
+
+.userInfo {
+  --padding-lr: 188px;
+
   display: flex;
   column-gap: 129px;
-  margin: 49px 188px 0;
+  padding: 49px var(--padding-lr) 32px;
 
   .text {
     text-align: justify;
@@ -15,10 +22,15 @@
       justify-content: left;
       column-gap: 8px;
       margin-bottom: 24px;
+      text-wrap: nowrap;
 
       & > svg {
-        width: 24px;
-        height: 24px;
+        width: $svg_wh;
+        height: $svg_wh;
+      }
+
+      & > a {
+        @include mix.hover-link();
       }
 
       &:last-child {
@@ -29,5 +41,51 @@
         margin-bottom: 2px;
       }
     }
+  }
+}
+
+@media screen and (max-width: size.$xxl) {
+  .userInfo {
+    --padding-lr: 168px;
+  }
+}
+
+@media screen and (max-width: size.$xl) {
+  .userInfo {
+    column-gap: 90px;
+    --padding-lr: 148px;
+  }
+}
+
+@media screen and (max-width: size.$lg) {
+  .userInfo {
+    --padding-lr: 62px;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .userInfo {
+    column-gap: 60px;
+  }
+}
+
+@media screen and (max-width: 840px) {
+  .userInfo {
+    display: flex;
+    flex-direction: column-reverse;
+    column-gap: 0;
+    row-gap: 32px;
+    padding-top: 32px;
+    --padding-lr: 35px;
+
+    .text {
+      max-width: 100%;
+    }
+  }
+}
+
+@media screen and (max-width: size.$sm) {
+  .userInfo {
+    --padding-lr: 16px;
   }
 }

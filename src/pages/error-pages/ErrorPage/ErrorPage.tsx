@@ -1,15 +1,21 @@
 import { FC } from "react";
-import { isRouteErrorResponse, useRouteError } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { ROUTES } from "utils/routes";
+import styles from "./ErrorPage.module.scss";
 
-const ErrorPage: FC = () => {
-	const error = useRouteError();
-
-	if (isRouteErrorResponse(error)) {
-		console.log(error);
-		return <div>{error.data.message}</div>;
-	}
-
-	return <div>Oops</div>;
+interface ErrorPageProps {
+	title?: string;
 }
 
-export default ErrorPage; 
+const ErrorPage: FC<ErrorPageProps> = ({ title }) => {
+	return (
+		<main className={`root_wrapper ${styles.error}`}>
+			<h2 className={styles.title}>{title}</h2>
+			<hr style={{ height: 1, width: "100px" }} />
+			<Link to={ROUTES.OUR_TEAM}>Главная страница</Link>
+			<hr style={{ height: 1, width: "100px" }} />
+		</main>
+	);
+};
+
+export default ErrorPage;

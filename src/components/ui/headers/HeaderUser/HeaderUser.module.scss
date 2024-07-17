@@ -1,14 +1,20 @@
+@use "utils/scss/variables" as size;
+
+$avatar_wh: 187px;
+$svg_wh: 40px;
+
 .header {
+  --header-padding-lr: 188px;
+
   position: relative;
   color: var(--white);
   background-color: var(--violet);
-  padding: 39px 16px;
+  padding: 39px var(--header-padding-lr);
 
   .wrapper {
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    margin: 0 188px; // Или margin-left: 188px
     column-gap: 32px;
 
     .inputFile {
@@ -26,8 +32,8 @@
     }
 
     .avatar {
-      width: 187px;
-      height: 187px;
+      width: $avatar_wh;
+      height: $avatar_wh;
       border-radius: 100%;
       object-fit: cover;
     }
@@ -45,17 +51,129 @@
   }
 
   .buttons {
+    --buttons-lr: 80px;
+    
     position: absolute;
     z-index: 5;
     display: flex;
     justify-content: space-between;
     top: 32px;
-    right: 80px;
-    left: 80px;
+    right: var(--buttons-lr);
+    left: var(--buttons-lr);
 
-    > button {
+    .btn {
+      color: var(--gray-light);
       padding: 8px 16px;
-      border: solid 1px var(--white);
+      border: solid 1px var(--gray-light);
+    }
+
+    .smallBtn {
+      line-height: 0;
+
+      & > svg {
+        height: $svg_wh;
+        width: $svg_wh;
+        fill: var(--gray-light);
+        transition: fill 0.1s linear;
+      }
+
+      @media (hover: hover) {
+        &:hover > svg {
+          fill: var(--gray);
+        }
+      }
+
+      @media (hover: none) {
+        &:active > svg {
+          fill: var(--gray);
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: size.$xxl) {
+  .header {
+    --header-padding-lr: 168px;
+
+    .buttons {
+      --buttons-lr: 60px;
+    }
+  }
+}
+
+@media screen and (max-width: size.$xl) {
+  .header {
+    --header-padding-lr: 148px;
+
+    .wrapper {
+      .wrapperText {
+        & > h1 {
+          font-size: 52px;
+        }
+
+        .subtext {
+          font-size: 26px;
+        }
+      }
+    }
+  }
+
+  .buttons {
+    --buttons-lr: 40px;
+  }
+}
+
+@media screen and (max-width: 1100px) {
+  .header {
+    .wrapper {
+      .wrapperText {
+        & > h1 {
+          font-size: 44px;
+        }
+
+        .subtext {
+          font-size: 22px;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: size.$lg) {
+  .header {
+    --header-padding-lr: 62px;
+
+    .buttons {
+      top: 12px;
+      --buttons-lr: 16px;
+    }
+  }
+}
+
+@media screen and (max-width: size.$sm) {
+  .header {
+    $padding-tb: 64px;
+    padding-top: $padding-tb;
+    padding-bottom: $padding-tb;
+
+    .wrapper {
+      display: flex;
+      flex-direction: column-reverse;
+      align-items: center;
+
+      .wrapperText {
+        text-align: center;
+        margin-bottom: 16px;
+
+        & > h1 {
+          font-size: 36px;
+        }
+
+        .subtext {
+          font-size: 20px;
+        }
+      }
     }
   }
 }

@@ -1,8 +1,11 @@
+@use "utils/scss/mixins" as m;
+
 .loginForm {
-  width: 500px;
   padding: 16px;
   border-radius: 16px;
   box-shadow: 0 4px 20px 0 rgba(#000000, 0.08);
+  -webkit-box-shadow: 0 4px 20px 0 rgba(#000000, 0.08);
+  -moz-box-shadow: 0 4px 20px 0 rgba(#000000, 0.08);
 
   .wrapper {
     margin-bottom: 24px;
@@ -18,8 +21,11 @@
     .link {
       font-size: 13px;
       line-height: normal;
+      color: var(--black);
+
+      @include m.hover-link();
     }
-    
+
     .btnSubmit {
       width: 100%;
       margin-top: 10px;

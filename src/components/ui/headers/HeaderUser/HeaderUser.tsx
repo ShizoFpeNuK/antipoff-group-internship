@@ -1,20 +1,24 @@
 import MainButton from "components/ui/buttons/MainButton/MainButton";
 import styles from "./HeaderUser.module.scss";
-import { ChangeEventHandler, FC, useRef, useState } from "react";
+import { ChangeEventHandler, FC, useRef } from "react";
 import { useAppDispatch } from "hooks/redux";
 import { clientLogout } from "store/actions/ActionCreators";
 import { IUser } from "models/our-team.model";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "utils/routes";
 import { ourTeamApi } from "services/our-team.service";
+import { ReactComponent as ExitIcon } from "assets/svg/exit.svg";
+import { ReactComponent as BackIcon } from "assets/svg/arrow.svg";
+import { useResizeWidth } from "hooks/useResizeWidth";
 
 interface HeaderUserProps {
 	user: IUser;
 }
 
 const HeaderUser: FC<HeaderUserProps> = ({ user }) => {
-	const dispatch = useAppDispatch();
 	const navigate = useNavigate();
+	const dispatch = useAppDispatch();
+	const windowWidth = useResizeWidth();
 	const inputRef = useRef<HTMLInputElement | null>(null);
 
 	const handleClickAvatar = () => {
@@ -61,18 +65,37 @@ const HeaderUser: FC<HeaderUserProps> = ({ user }) => {
 			</div>
 
 			<div className={styles.buttons}>
-				<MainButton
-					className={styles.btnBack}
-					onClick={handleClickBack}
-				>
-					Назад
-				</MainButton>
-				<MainButton
-					className={styles.btnLogout}
-					onClick={() => dispatch(clientLogout())}
-				>
-					Выход
-				</MainButton>
+				{windowWidth > 1024 ? (
+					<>
+						<MainButton
+							className={styles.btn}
+							onClick={handleClickBack}
+						>
+							Назад
+						</MainButton>
+						<MainButton
+							className={styles.btn}
+							onClick={() => dispatch(clientLogout())}
+						>
+							Выход
+						</MainButton>
+					</>
+				) : (
+					<>
+						<button
+							className={styles.smallBtn}
+							onClick={handleClickBack}
+						>
+							<BackIcon />
+						</button>
+						<button
+							className={styles.smallBtn}
+							onClick={() => dispatch(clientLogout())}
+						>
+							<ExitIcon />
+						</button>
+					</>
+				)}
 			</div>
 		</header>
 	);

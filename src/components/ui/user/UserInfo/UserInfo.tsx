@@ -10,7 +10,7 @@ interface UserInfoProps {
 
 const UserInfo: FC<UserInfoProps> = ({ user }) => {
 	return (
-		<section className={styles.wrapper}>
+		<section className={styles.userInfo}>
 			<p className={styles.text}>
 				Клиенты видят в нем эксперта по вопросам разработки комплексных решений финансовых
 				продуктов, включая такие аспекты, как организационная структура, процессы, аналитика и

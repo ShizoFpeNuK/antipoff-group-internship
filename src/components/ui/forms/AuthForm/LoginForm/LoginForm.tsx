@@ -29,8 +29,8 @@ const LoginForm: FC = () => {
 	const [values, setValues] = useState<ValuesForm<string>>(defaultValues);
 	const [errors, setErrors] = useState<ValuesForm<boolean>>(defaultErrors);
 	const [messages, setMessages] = useState<ValuesForm<string>>(defaultValues);
-	const navigate = useNavigate();
 	const { isAuth } = useAppSelector((state) => state.clientReducer);
+	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
 
 	const handleChange: ChangeEventHandler<HTMLInputElement> = ({ target }) => {
@@ -84,15 +84,19 @@ const LoginForm: FC = () => {
 			className={styles.loginForm}
 			onSubmit={handleSubmit}
 			noValidate
+      autoComplete="on"
+      name="sing-up"
 		>
 			<div className={styles.wrapper}>
 				<h2 className="root_h2">Авторизация</h2>
 				<Input
-					name="email"
-					label="Электронная почта"
 					type="email"
+					name="email"
+          id="email"
+					label="Электронная почта"
 					placeholder="example@mail.ru"
 					required
+          autoComplete="email"
 					onChange={handleChange}
 					textError={errors.email ? messages.email : ""}
 				/>
@@ -100,6 +104,8 @@ const LoginForm: FC = () => {
 					name="password"
 					label="Пароль"
 					required
+          autoComplete="off"
+          placeholder="*******"
 					onChange={handleChange}
 					textError={errors.password ? messages.password : ""}
 				/>

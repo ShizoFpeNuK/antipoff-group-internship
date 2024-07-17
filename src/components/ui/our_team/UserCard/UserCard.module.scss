@@ -1,3 +1,5 @@
+$color_svg: #6a1fcd;
+
 .card {
   cursor: pointer;
   padding: 36px 20px 20px;
@@ -43,12 +45,23 @@
         width: 30px;
         stroke: var(--black);
         fill: transparent;
+        transition:
+          stroke 0.1s linear,
+          fill 0.1s linear;
+      }
+
+      @media (hover: hover) {
+        & > svg:hover {
+          stroke: var(--violet);
+        }
+      }
+
+      @media (hover: none) {
+        & > svg:active > svg {
+          stroke: var(--violet);
+        }
       }
     }
-  }
-
-  &:hover {
-    border-color: var(--black);
   }
 
   &[data-liked] {
@@ -57,6 +70,32 @@
         stroke: var(--violet);
         fill: var(--violet);
       }
+
+      @media (hover: hover) {
+        & > svg:hover {
+          fill: $color_svg;
+          stroke: $color_svg;
+        }
+      }
+
+      @media (hover: none) {
+        & > svg:active {
+          fill: $color_svg;
+          stroke: $color_svg;
+        }
+      }
+    }
+  }
+
+  @media (hover: hover) {
+    &:hover {
+      border-color: var(--black);
+    }
+  }
+
+  @media (hover: none) {
+    &:active {
+      border-color: var(--black);
     }
   }
 }
