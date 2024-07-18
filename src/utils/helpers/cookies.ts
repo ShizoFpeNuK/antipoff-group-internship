@@ -5,7 +5,6 @@ interface IOptionsCookie {
 	"max-age"?: string | number;
 	"secure"?: boolean;
 	"samesite"?: "strict" | "lax";
-	"httpOnly"?: boolean;
 }
 
 export const getCookie = (name: string) => {

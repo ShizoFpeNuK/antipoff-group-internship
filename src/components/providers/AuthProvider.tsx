@@ -1,13 +1,14 @@
+import MainLoader from "components/ui/loaders/MainLoader/MainLoader";
 import { useAppSelector } from "hooks/redux";
 import { FC } from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import { ROUTES } from "utils/routes";
 
 const AuthProvider: FC = () => {
-	const { isAuth, isGetLocalStorage } = useAppSelector((state) => state.clientReducer);
+	const { isGetLocalStorage, client } = useAppSelector((state) => state.clientReducer);
 
 	if (isGetLocalStorage) {
-		if (!isAuth) {
+		if (!client) {
 			return (
 				<Navigate
 					to={ROUTES.SING_IN}
@@ -18,8 +19,8 @@ const AuthProvider: FC = () => {
 
 		return <Outlet />;
 	}
-  
-	return <p>Loading...</p>;
+
+	return <MainLoader size={100} />;
 };
 
 export default AuthProvider;

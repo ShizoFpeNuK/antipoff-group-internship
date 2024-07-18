@@ -9,6 +9,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { ROUTES } from "utils/routes";
 import { useAppDispatch, useAppSelector } from "hooks/redux";
 import { clientRegister } from "store/actions/ActionCreators";
+import MainLoader from "components/ui/loaders/MainLoader/MainLoader";
+import { clientSlice } from "store/reducers/ClientSlice";
 
 interface ValuesForm<T> {
 	name: T;
@@ -35,8 +37,9 @@ const RegisterForm: FC = () => {
 	const [values, setValues] = useState<ValuesForm<string>>(defaultValues);
 	const [errors, setErrors] = useState<ValuesForm<boolean>>(defaultErrors);
 	const [messages, setMessages] = useState<ValuesForm<string>>(defaultValues);
+	const { client, isLoading, isError } = useAppSelector((state) => state.clientReducer);
+	const { setIsError } = clientSlice.actions;
 	const navigate = useNavigate();
-	const { isAuth } = useAppSelector((state) => state.clientReducer);
 	const dispatch = useAppDispatch();
 
 	const handleChange: ChangeEventHandler<HTMLInputElement> = ({ target }) => {
@@ -102,14 +105,16 @@ const RegisterForm: FC = () => {
 					password: values.password,
 				}),
 			);
+		} else {
+			dispatch(setIsError(false));
 		}
 	};
 
 	useEffect(() => {
-		if (isAuth) {
+		if (client) {
 			navigate(ROUTES.OUR_TEAM);
 		}
-	}, [isAuth, navigate]);
+	}, [client, navigate]);
 
 	return (
 		<form
@@ -118,6 +123,12 @@ const RegisterForm: FC = () => {
 			noValidate
 			autoComplete="on"
 		>
+      {isLoading && (
+				<div className={styles.overlay}>
+					<MainLoader size={100} />
+				</div>
+			)}
+      
 			<div className={styles.wrapper}>
 				<h2 className="root_h2">Регистрация</h2>
 				<Input
@@ -160,12 +171,14 @@ const RegisterForm: FC = () => {
 					onChange={handleChange}
 					textError={errors.confirm_password ? messages.confirm_password : ""}
 				/>
+        {isError && <p className={styles.errorSubmit}>Не существует текущего пользователя </p>}
 			</div>
 
 			<div className={styles.buttons}>
 				<Link
 					className={styles.link}
 					to={ROUTES.SING_IN}
+          onClick={() => dispatch(setIsError(false))}
 				>
 					Уже есть аккаунт?
 				</Link>

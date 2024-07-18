@@ -3,19 +3,18 @@ import { useNavigate } from "react-router-dom";
 import { FC, useEffect } from "react";
 import { useAppSelector } from "hooks/redux";
 
-// TODO: Превратить в хук
 const AnyPage: FC = () => {
-	const { isAuth } = useAppSelector((state) => state.clientReducer);
+	const { client } = useAppSelector((state) => state.clientReducer);
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		if (!isAuth) {
+		if (!client) {
 			navigate(ROUTES.SING_IN);
 			return;
 		}
 
 		navigate(ROUTES.OUR_TEAM);
-	}, [isAuth, navigate]);
+	}, [client, navigate]);
 
 	return null;
 };

@@ -6,7 +6,7 @@ import { NAME_LOCALSTORAGE } from "utils/helpers/name-localStorage";
 
 const StoreInitializer: FC = () => {
 	const dispatch = useAppDispatch();
-	const { setIsAuth, setIsLoading, setIsGetLocalStorage } = clientSlice.actions;
+	const { setIsLoading, setIsGetLocalStorage, setClient } = clientSlice.actions;
 	const { setUsersLikeId } = usersLikeSlice.actions;
 	const isInitialized = useRef(false);
 
@@ -14,21 +14,19 @@ const StoreInitializer: FC = () => {
 		if (!isInitialized.current) {
 			isInitialized.current = true;
 			dispatch(setIsLoading(true));
-			const isAuthClient = localStorage.getItem(NAME_LOCALSTORAGE.IS_AUTH);
-
-			if (isAuthClient) {
-				dispatch(setIsAuth(JSON.parse(isAuthClient)));
-				dispatch(setIsLoading(false));
+			const client = localStorage.getItem(NAME_LOCALSTORAGE.CLIENT);
+			if (client) {
+				dispatch(setClient(JSON.parse(client)));
 			}
+			dispatch(setIsLoading(false));
 
 			dispatch(setIsGetLocalStorage(true));
-
 			const usersLikeId = localStorage.getItem(NAME_LOCALSTORAGE.USERS_LIKE_ID);
 			if (usersLikeId) {
 				dispatch(setUsersLikeId(JSON.parse(usersLikeId)));
 			}
 		}
-	});
+	}, [dispatch, setClient, setIsGetLocalStorage, setIsLoading, setUsersLikeId]);
 
 	return null;
 };

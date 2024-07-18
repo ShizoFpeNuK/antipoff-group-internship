@@ -10,12 +10,15 @@ import { ourTeamApi } from "services/our-team.service";
 import { ReactComponent as ExitIcon } from "assets/svg/exit.svg";
 import { ReactComponent as BackIcon } from "assets/svg/arrow.svg";
 import { useResizeWidth } from "hooks/useResizeWidth";
+import { ReactComponent as EditIcon } from "assets/svg/edit.svg";
+import { IClient } from "models/client.model";
 
 interface HeaderUserProps {
 	user: IUser;
+	client: IClient | null;
 }
 
-const HeaderUser: FC<HeaderUserProps> = ({ user }) => {
+const HeaderUser: FC<HeaderUserProps> = ({ user, client }) => {
 	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
 	const windowWidth = useResizeWidth();
@@ -42,21 +45,31 @@ const HeaderUser: FC<HeaderUserProps> = ({ user }) => {
 	return (
 		<header className={styles.header}>
 			<div className={styles.wrapper}>
-				<input
-					ref={inputRef}
-					className={styles.inputFile}
-					type="file"
-					accept=".jpg,.png,.jpeg,.webp,.avif"
-					onChange={handleChangeAvatar}
-					autoComplete="off"
-					value=""
-				/>
-				<img
-					className={styles.avatar}
-					src={user.avatar || "/img/avatar.png"}
-					alt={`${user.first_name} ${user.last_name}` || "Пользователь"}
-					onClick={handleClickAvatar}
-				/>
+				<div className={styles.wrapperAvatar}>
+					<input
+						ref={inputRef}
+						className={styles.inputFile}
+						type="file"
+						accept=".jpg,.png,.jpeg,.webp,.avif"
+						onChange={handleChangeAvatar}
+						autoComplete="off"
+						value=""
+					/>
+					<img
+						className={styles.avatar}
+						src={user.avatar || "/img/avatar.png"}
+						alt={`${user.first_name} ${user.last_name}` || "Пользователь"}
+					/>
+
+					{client?.email === user.email && (
+						<button
+							className={styles.btnEdit}
+							onClick={handleClickAvatar}
+						>
+							<EditIcon />
+						</button>
+					)}
+				</div>
 
 				<div className={styles.wrapperText}>
 					<h1 className="root_h1">{`${user.first_name} ${user.last_name}`}</h1>

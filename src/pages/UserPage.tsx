@@ -3,9 +3,10 @@ import MainLoader from "components/ui/loaders/MainLoader/MainLoader";
 import UserInfo from "components/ui/user/UserInfo/UserInfo";
 import { IGetUser } from "models/our-team.model";
 import { FC, Suspense } from "react";
-import { Await, useLoaderData, useParams } from "react-router-dom";
+import { Await, ScrollRestoration, useLoaderData, useParams } from "react-router-dom";
 import { ourTeamApi } from "services/our-team.service";
 import ErrorPage from "./error-pages/ErrorPage/ErrorPage";
+import { useAppSelector } from "hooks/redux";
 
 const UserPage: FC = () => {
 	const { user } = useLoaderData() as { user: IGetUser };
@@ -29,6 +30,7 @@ export default UserPage;
 const Container: FC = () => {
 	const params = useParams();
 	const { data: user, isFetching } = ourTeamApi.useGetUserByIdQuery(Number(params["userId"]));
+	const { client } = useAppSelector((state) => state.clientReducer);
 
 	if (isFetching) {
 		return <MainLoader size={100} />;
@@ -36,10 +38,14 @@ const Container: FC = () => {
 
 	return (
 		<>
-			<HeaderUser user={user!.data} />
+			<HeaderUser
+				user={user!.data}
+				client={client}
+			/>
 			<main>
 				<UserInfo user={user!.data} />
 			</main>
+			<ScrollRestoration />
 		</>
 	);
 };

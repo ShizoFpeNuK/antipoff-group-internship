@@ -9,6 +9,8 @@ import { RULES_EMAIL } from "utils/rules/form-rules";
 import { MESSAGE_ERROR } from "utils/rules/message-rules";
 import { useAppDispatch, useAppSelector } from "hooks/redux";
 import { clientLogin } from "store/actions/ActionCreators";
+import MainLoader from "components/ui/loaders/MainLoader/MainLoader";
+import { clientSlice } from "store/reducers/ClientSlice";
 
 interface ValuesForm<T> {
 	email: T;
@@ -29,7 +31,8 @@ const LoginForm: FC = () => {
 	const [values, setValues] = useState<ValuesForm<string>>(defaultValues);
 	const [errors, setErrors] = useState<ValuesForm<boolean>>(defaultErrors);
 	const [messages, setMessages] = useState<ValuesForm<string>>(defaultValues);
-	const { isAuth } = useAppSelector((state) => state.clientReducer);
+	const { client, isLoading, isError } = useAppSelector((state) => state.clientReducer);
+	const { setIsError } = clientSlice.actions;
 	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
 
@@ -70,33 +73,41 @@ const LoginForm: FC = () => {
 					password: values.password,
 				}),
 			);
+		} else {
+			dispatch(setIsError(false));
 		}
 	};
 
 	useEffect(() => {
-		if (isAuth) {
+		if (client) {
 			navigate(ROUTES.OUR_TEAM);
 		}
-	}, [isAuth, navigate]);
+	}, [client, navigate]);
 
 	return (
 		<form
 			className={styles.loginForm}
 			onSubmit={handleSubmit}
 			noValidate
-      autoComplete="on"
-      name="sing-up"
+			autoComplete="on"
+			name="sing-up"
 		>
+			{isLoading && (
+				<div className={styles.overlay}>
+					<MainLoader size={100} />
+				</div>
+			)}
+
 			<div className={styles.wrapper}>
 				<h2 className="root_h2">Авторизация</h2>
 				<Input
 					type="email"
 					name="email"
-          id="email"
+					id="email"
 					label="Электронная почта"
 					placeholder="example@mail.ru"
 					required
-          autoComplete="email"
+					autoComplete="email"
 					onChange={handleChange}
 					textError={errors.email ? messages.email : ""}
 				/>
@@ -104,17 +115,19 @@ const LoginForm: FC = () => {
 					name="password"
 					label="Пароль"
 					required
-          autoComplete="off"
-          placeholder="*******"
+					autoComplete="off"
+					placeholder="*******"
 					onChange={handleChange}
 					textError={errors.password ? messages.password : ""}
 				/>
+				{isError && <p className={styles.errorSubmit}>Не существует текущего пользователя </p>}
 			</div>
 
 			<div className={styles.buttons}>
 				<Link
 					className={styles.link}
 					to={ROUTES.SING_UP}
+          onClick={() => dispatch(setIsError(false))}
 				>
 					Создать аккаунт
 				</Link>

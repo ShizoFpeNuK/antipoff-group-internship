@@ -7,27 +7,27 @@ import { NAME_LOCALSTORAGE } from "utils/helpers/name-localStorage";
 
 export const authMiddleware: Middleware<{}, RootState> = (store) => (next) => (action) => {
 	if (clientRegister.fulfilled.match(action)) {
-		const { token } = action.payload;
-		localStorage.setItem(NAME_LOCALSTORAGE.IS_AUTH, "true");
+		const { token, data } = action.payload;
+		localStorage.setItem(NAME_LOCALSTORAGE.CLIENT, JSON.stringify(data));
 		setCookie(NAME_COOKIES.TOKEN, token, { secure: true });
 	}
 	if (clientRegister.rejected.match(action)) {
-		localStorage.setItem(NAME_LOCALSTORAGE.IS_AUTH, "false");
+		localStorage.removeItem(NAME_LOCALSTORAGE.CLIENT);
 		deleteCookie(NAME_COOKIES.TOKEN);
 	}
 
 	if (clientLogin.fulfilled.match(action)) {
-		const { token } = action.payload;
-		localStorage.setItem(NAME_LOCALSTORAGE.IS_AUTH, "true");
+		const { token, data } = action.payload;
+		localStorage.setItem(NAME_LOCALSTORAGE.CLIENT, JSON.stringify(data));
 		setCookie(NAME_COOKIES.TOKEN, token, { secure: true });
 	}
 	if (clientLogin.rejected.match(action)) {
-		localStorage.setItem(NAME_LOCALSTORAGE.IS_AUTH, "false");
+		localStorage.removeItem(NAME_LOCALSTORAGE.CLIENT);
 		deleteCookie(NAME_COOKIES.TOKEN);
 	}
 
 	if (clientLogout.fulfilled.match(action)) {
-		localStorage.setItem(NAME_LOCALSTORAGE.IS_AUTH, "false");
+		localStorage.removeItem(NAME_LOCALSTORAGE.CLIENT);
 		deleteCookie(NAME_COOKIES.TOKEN);
 	}
 

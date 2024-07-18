@@ -53,7 +53,12 @@ export default UserListWithPagination;
 const Error: FC = () => {
 	return (
 		<div className={styles.error}>
-			<h2 className="root_h2" style={{fontWeight: "bold"}}>Ничего не найдено</h2>
+			<h2
+				className="root_h2"
+				style={{ fontWeight: "bold" }}
+			>
+				Ничего не найдено
+			</h2>
 			<p>Попробуйте изменить параметры поиска</p>
 		</div>
 	);
