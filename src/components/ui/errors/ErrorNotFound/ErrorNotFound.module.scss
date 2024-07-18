@@ -1,0 +1,16 @@
+.error {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 250px;
+
+  & > h2 {
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  & > p {
+    font-size: 14px;
+  }
+}

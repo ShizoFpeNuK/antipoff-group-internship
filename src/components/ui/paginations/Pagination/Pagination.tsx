@@ -1,13 +1,13 @@
-import { createButtons } from "utils/helpers/pagination";
 import styles from "./Pagination.module.scss";
-import { FC, MouseEventHandler, useMemo } from "react";
+import { createButtons } from "utils/helpers/pagination";
 import { ReactComponent as ArrowIcon } from "assets/svg/arrow.svg";
+import { FC, MouseEventHandler, useMemo } from "react";
 
 interface PaginationProps {
 	current: number;
 	totalPages: number;
-	onChangePage: (page: number) => void;
 	disabledAll?: boolean;
+	onChangePage: (page: number) => void;
 }
 
 const DIRECTION = { left: "left", right: "right" };

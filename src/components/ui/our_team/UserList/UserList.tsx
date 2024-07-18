@@ -1,11 +1,11 @@
-import UserCard from "../UserCard/UserCard";
 import styles from "./UserList.module.scss";
-import { FC, MouseEventHandler, useEffect, useRef } from "react";
+import UserCard from "../UserCard/UserCard";
 import { IUser } from "models/our-team.model";
-import { useNavigate } from "react-router-dom";
 import { ROUTES } from "utils/routes";
+import { useNavigate } from "react-router-dom";
 import { usersLikeSlice } from "store/reducers/UsersLikeSlice";
 import { useAppDispatch, useAppSelector } from "hooks/redux";
+import { FC, MouseEventHandler, useEffect, useRef } from "react";
 
 interface UserListProps {
 	users: IUser[];
@@ -23,11 +23,7 @@ const UserList: FC<UserListProps> = ({ users }) => {
 		let el = target as HTMLElement;
 
 		if (!el.classList.contains(styles.list)) {
-			if (
-				el.tagName.toLowerCase() === "button" ||
-				el.tagName.toLowerCase() === "svg" ||
-				el.tagName.toLowerCase() === "path"
-			) {
+			if (el.tagName.toLowerCase() === "button") {
 				while (el.tagName.toLowerCase() !== "button" && el.tagName.toLowerCase() !== "body") {
 					el = el.parentElement!;
 				}

@@ -1,10 +1,10 @@
-import MainButton from "components/ui/buttons/MainButton/MainButton";
 import styles from "./HeaderOurTeam.module.scss";
+import MainButton from "components/ui/buttons/MainButton/MainButton";
 import { FC } from "react";
+import { clientLogout } from "store/actions/client.actions";
 import { useAppDispatch } from "hooks/redux";
-import { clientLogout } from "store/actions/ActionCreators";
-import { ReactComponent as ExitIcon } from "assets/svg/exit.svg";
 import { useResizeWidth } from "hooks/useResizeWidth";
+import { ReactComponent as ExitIcon } from "assets/svg/exit.svg";
 
 const HeaderOurTeam: FC = () => {
 	const dispatch = useAppDispatch();

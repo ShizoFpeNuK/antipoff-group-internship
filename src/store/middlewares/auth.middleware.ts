@@ -1,9 +1,9 @@
-import { Middleware } from "@reduxjs/toolkit";
-import { clientLogin, clientLogout, clientRegister } from "store/actions/ActionCreators";
 import { RootState } from "store/store";
-import { deleteCookie, setCookie } from "utils/helpers/cookies";
+import { Middleware } from "@reduxjs/toolkit";
 import { NAME_COOKIES } from "utils/helpers/name-cookies";
 import { NAME_LOCALSTORAGE } from "utils/helpers/name-localStorage";
+import { deleteCookie, setCookie } from "utils/helpers/cookies";
+import { clientLogin, clientLogout, clientRegister } from "store/actions/client.actions";
 
 export const authMiddleware: Middleware<{}, RootState> = (store) => (next) => (action) => {
 	if (clientRegister.fulfilled.match(action)) {

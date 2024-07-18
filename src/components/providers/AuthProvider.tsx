@@ -1,8 +1,8 @@
 import MainLoader from "components/ui/loaders/MainLoader/MainLoader";
-import { useAppSelector } from "hooks/redux";
 import { FC } from "react";
-import { Navigate, Outlet } from "react-router-dom";
 import { ROUTES } from "utils/routes";
+import { useAppSelector } from "hooks/redux";
+import { Navigate, Outlet } from "react-router-dom";
 
 const AuthProvider: FC = () => {
 	const { isGetLocalStorage, client } = useAppSelector((state) => state.clientReducer);

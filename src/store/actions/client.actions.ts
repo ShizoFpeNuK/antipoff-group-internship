@@ -1,6 +1,6 @@
+import ClientService from "services/client.service";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { IClientRes, IClientForm } from "models/client.model";
-import ClientService from "services/client.service";
 
 export const clientRegister = createAsyncThunk<IClientRes, IClientForm>(
 	"/register",

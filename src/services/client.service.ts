@@ -1,10 +1,10 @@
 import axios from "axios";
 import { IClientForm, IToken } from "models/client.model";
-import serverAPI from "utils/configs/axios.config";
+import serverAPI, { BASE_URL } from "utils/configs/axios.config";
 
 class ClientService {
 	static async register(client: IClientForm): Promise<IToken> {
-		const token = await axios.post<IToken>(`${process.env.REACT_APP_SERVER_URL}/register`, client);
+		const token = await axios.post<IToken>(`${BASE_URL}/register`, client);
 
 		return token.data;
 	}

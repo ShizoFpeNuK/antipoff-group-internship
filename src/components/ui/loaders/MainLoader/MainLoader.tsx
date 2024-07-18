@@ -1,5 +1,5 @@
-import { FC } from "react";
 import styles from "./MainLoader.module.scss";
+import { FC } from "react";
 
 interface MainLoaderProps {
   size?: number | string;

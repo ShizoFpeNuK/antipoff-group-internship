@@ -1,10 +1,11 @@
-import { FC, useEffect, useState } from "react";
-import UserList from "../UserList/UserList";
-import Pagination from "components/ui/paginations/Pagination/Pagination";
-import { useSearchParams } from "react-router-dom";
-import { ourTeamApi } from "services/our-team.service";
 import styles from "./UserListWithPagination.module.scss";
+import UserList from "../UserList/UserList";
 import MainLoader from "components/ui/loaders/MainLoader/MainLoader";
+import Pagination from "components/ui/paginations/Pagination/Pagination";
+import ErrorNotFound from "components/ui/errors/ErrorNotFound/ErrorNotFound";
+import { ourTeamApi } from "services/our-team.service";
+import { useSearchParams } from "react-router-dom";
+import { FC, useEffect, useState } from "react";
 
 const initialPage = (query: URLSearchParams) => {
 	const page = Number(query.get("page"));
@@ -33,7 +34,7 @@ const UserListWithPagination: FC<UserListWithPaginationProps> = ({ countPerPage 
 				team!.data.length > 0 ? (
 					<UserList users={team!.data} />
 				) : (
-					<Error />
+					<ErrorNotFound />
 				)
 			) : (
 				<MainLoader size={100} />
@@ -49,17 +50,3 @@ const UserListWithPagination: FC<UserListWithPaginationProps> = ({ countPerPage 
 };
 
 export default UserListWithPagination;
-
-const Error: FC = () => {
-	return (
-		<div className={styles.error}>
-			<h2
-				className="root_h2"
-				style={{ fontWeight: "bold" }}
-			>
-				Ничего не найдено
-			</h2>
-			<p>Попробуйте изменить параметры поиска</p>
-		</div>
-	);
-};

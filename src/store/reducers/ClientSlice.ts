@@ -1,16 +1,16 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { clientLogin, clientLogout, clientRegister } from "../actions/ActionCreators";
 import { IClient, IClientRes } from "models/client.model";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { clientLogin, clientLogout, clientRegister } from "../actions/client.actions";
 
 interface IClientState {
-  isError: boolean;
+	isError: boolean;
 	isLoading: boolean;
 	isGetLocalStorage: boolean;
 	client: IClient | null;
 }
 
 const initialState: IClientState = {
-  isError: false,
+	isError: false,
 	isLoading: false,
 	isGetLocalStorage: false,
 	client: null,
@@ -23,7 +23,7 @@ export const clientSlice = createSlice({
 		setIsLoading: (state, action: PayloadAction<boolean>) => {
 			state.isLoading = action.payload;
 		},
-    setIsError: (state, action: PayloadAction<boolean>) => {
+		setIsError: (state, action: PayloadAction<boolean>) => {
 			state.isError = action.payload;
 		},
 		setIsGetLocalStorage: (state, action: PayloadAction<boolean>) => {
@@ -39,11 +39,11 @@ export const clientSlice = createSlice({
 			state.client = action.payload.data;
 		});
 		builder.addCase(clientRegister.rejected, (state) => {
-      state.isError = true;
+			state.isError = true;
 			state.isLoading = false;
 		});
 		builder.addCase(clientRegister.pending, (state) => {
-      state.isError = false;
+			state.isError = false;
 			state.isLoading = true;
 			state.client = null;
 		});
@@ -53,11 +53,11 @@ export const clientSlice = createSlice({
 			state.client = action.payload.data;
 		});
 		builder.addCase(clientLogin.rejected, (state) => {
-      state.isError = true;
+			state.isError = true;
 			state.isLoading = false;
 		});
 		builder.addCase(clientLogin.pending, (state) => {
-      state.isError = false;
+			state.isError = false;
 			state.isLoading = true;
 			state.client = null;
 		});
@@ -67,11 +67,11 @@ export const clientSlice = createSlice({
 			state.client = null;
 		});
 		builder.addCase(clientLogout.rejected, (state) => {
-      state.isError = true;
+			state.isError = true;
 			state.isLoading = false;
 		});
 		builder.addCase(clientLogout.pending, (state) => {
-      state.isError = false;
+			state.isError = false;
 			state.isLoading = true;
 		});
 	},

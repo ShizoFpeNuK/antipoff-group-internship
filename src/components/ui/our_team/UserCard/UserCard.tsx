@@ -1,7 +1,7 @@
 import styles from "./UserCard.module.scss";
 import { FC } from "react";
-import { ReactComponent as HearthIcon } from "assets/svg/hearth.svg";
 import { IUser } from "models/our-team.model";
+import { ReactComponent as HearthIcon } from "assets/svg/hearth.svg";
 
 interface UserCardProps {
 	user: IUser;

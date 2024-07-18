@@ -1,8 +1,8 @@
 import styles from "./UserInfo.module.scss";
 import { FC } from "react";
+import { IUser } from "models/our-team.model";
 import { ReactComponent as TelIcon } from "assets/svg/telephone.svg";
 import { ReactComponent as EmailIcon } from "assets/svg/email.svg";
-import { IUser } from "models/our-team.model";
 
 interface UserInfoProps {
 	user: IUser;

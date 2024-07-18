@@ -1,9 +1,9 @@
-import HeaderOurTeam from "components/ui/headers/HeaderOurTeam/HeaderOurTeam";
 import MainLoader from "components/ui/loaders/MainLoader/MainLoader";
+import HeaderOurTeam from "components/ui/headers/HeaderOurTeam/HeaderOurTeam";
 import UserListWithPagination from "components/ui/our_team/UserListWithPagination/UserListWithPagination";
-import { COUNT_PER_PAGE } from "index";
 import { IOurTeam } from "models/our-team.model";
 import { FC, Suspense } from "react";
+import { COUNT_PER_PAGE } from "index";
 import { Await, ScrollRestoration, useLoaderData } from "react-router-dom";
 
 const OurTeamPage: FC = () => {

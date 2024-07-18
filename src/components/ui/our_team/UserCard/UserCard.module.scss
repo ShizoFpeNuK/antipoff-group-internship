@@ -1,5 +1,3 @@
-$color_svg: #6a1fcd;
-
 .card {
   cursor: pointer;
   padding: 36px 20px 20px;
@@ -34,13 +32,16 @@ $color_svg: #6a1fcd;
     justify-content: flex-end;
 
     .btnLike {
-      display: block;
-      height: auto;
+      position: relative;
+      z-index: 5;
+      line-height: 0;
       border-radius: 4px;
       background-color: var(--gray-light);
 
       & > svg {
-        display: block;
+        position: relative;
+        z-index: -100;
+        line-height: 0;
         height: 28px;
         width: 30px;
         stroke: var(--black);
@@ -51,13 +52,13 @@ $color_svg: #6a1fcd;
       }
 
       @media (hover: hover) {
-        & > svg:hover {
+        &:hover > svg {
           stroke: var(--violet);
         }
       }
 
       @media (hover: none) {
-        & > svg:active > svg {
+        &:active > svg {
           stroke: var(--violet);
         }
       }
@@ -72,16 +73,16 @@ $color_svg: #6a1fcd;
       }
 
       @media (hover: hover) {
-        & > svg:hover {
-          fill: $color_svg;
-          stroke: $color_svg;
+        &:hover > svg {
+          fill: var(--violet-light);
+          stroke: var(--violet-light);
         }
       }
 
       @media (hover: none) {
-        & > svg:active {
-          fill: $color_svg;
-          stroke: $color_svg;
+        &:active > svg {
+          fill: var(--violet-light);
+          stroke: var(--violet-light);
         }
       }
     }
@@ -94,7 +95,7 @@ $color_svg: #6a1fcd;
   }
 
   @media (hover: none) {
-    &:active {
+    &:active:has(.btnLike:not(:active)) {
       border-color: var(--black);
     }
   }

@@ -1,36 +1,33 @@
-import MainButton from "components/ui/buttons/MainButton/MainButton";
 import styles from "./LoginForm.module.scss";
 import Input from "components/ui/forms/form-items/Input/Input";
+import MainButton from "components/ui/buttons/MainButton/MainButton";
+import MainLoader from "components/ui/loaders/MainLoader/MainLoader";
 import InputPassword from "components/ui/forms/form-items/InputPassword/InputPassword";
-import { ChangeEventHandler, FC, FormEventHandler, useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
 import { ROUTES } from "utils/routes";
 import { RULES_EMAIL } from "utils/rules/form-rules";
-import { MESSAGE_ERROR } from "utils/rules/message-rules";
-import { useAppDispatch, useAppSelector } from "hooks/redux";
-import { clientLogin } from "store/actions/ActionCreators";
-import MainLoader from "components/ui/loaders/MainLoader/MainLoader";
 import { clientSlice } from "store/reducers/ClientSlice";
+import { clientLogin } from "store/actions/client.actions";
+import { MESSAGE_ERROR } from "utils/rules/message-rules";
+import { Link, useNavigate } from "react-router-dom";
+import { ErrorsForm, ValuesForm } from "utils/types/form.type";
+import { useAppDispatch, useAppSelector } from "hooks/redux";
+import { ChangeEventHandler, FC, FormEventHandler, useEffect, useState } from "react";
 
-interface ValuesForm<T> {
-	email: T;
-	password: T;
-}
+type FormKeys = "email" | "password";
 
-const defaultValues: ValuesForm<string> = {
+const defaultValues: ValuesForm<FormKeys> = {
 	email: "",
 	password: "",
 };
 
-const defaultErrors: ValuesForm<boolean> = {
-	email: false,
-	password: false,
+const defaultErrors: ErrorsForm<FormKeys> = {
+	email: { error: false, message: "" },
+	password: { error: false, message: "" },
 };
 
 const LoginForm: FC = () => {
-	const [values, setValues] = useState<ValuesForm<string>>(defaultValues);
-	const [errors, setErrors] = useState<ValuesForm<boolean>>(defaultErrors);
-	const [messages, setMessages] = useState<ValuesForm<string>>(defaultValues);
+	const [values, setValues] = useState<ValuesForm<FormKeys>>(defaultValues);
+	const [errors, setErrors] = useState<ErrorsForm<FormKeys>>(defaultErrors);
 	const { client, isLoading, isError } = useAppSelector((state) => state.clientReducer);
 	const { setIsError } = clientSlice.actions;
 	const navigate = useNavigate();
@@ -43,28 +40,26 @@ const LoginForm: FC = () => {
 	const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
 		e.preventDefault();
 		const err = { ...errors };
-		const mes = { ...messages };
 
 		if (!values.email) {
-			mes.email = MESSAGE_ERROR.REQUIRED;
-			err.email = true;
+			err.email.message = MESSAGE_ERROR.REQUIRED;
+			err.email.error = true;
 		} else if (!RULES_EMAIL.pattern.value.test(values.email)) {
-			mes.email = RULES_EMAIL.pattern.message;
-			err.email = true;
+			err.email.message = RULES_EMAIL.pattern.message;
+			err.email.error = true;
 		} else {
-			err.email = false;
+			err.email.error = false;
 		}
 
 		if (!values.password) {
-			mes.password = MESSAGE_ERROR.REQUIRED;
-			err.password = true;
+			err.password.message = MESSAGE_ERROR.REQUIRED;
+			err.password.error = true;
 		} else {
-			err.password = false;
+			err.password.error = false;
 		}
 
 		setErrors(err);
-		setMessages(mes);
-		const isNotError = Object.values(err).every((e) => !e);
+		const isNotError = Object.values(err).every((e) => !e.error);
 
 		if (isNotError) {
 			dispatch(
@@ -109,7 +104,7 @@ const LoginForm: FC = () => {
 					required
 					autoComplete="email"
 					onChange={handleChange}
-					textError={errors.email ? messages.email : ""}
+					textError={errors.email.error ? errors.email.message : ""}
 				/>
 				<InputPassword
 					name="password"
@@ -118,7 +113,7 @@ const LoginForm: FC = () => {
 					autoComplete="off"
 					placeholder="*******"
 					onChange={handleChange}
-					textError={errors.password ? messages.password : ""}
+					textError={errors.password.error ? errors.password.message : ""}
 				/>
 				{isError && <p className={styles.errorSubmit}>Не существует текущего пользователя </p>}
 			</div>
@@ -127,7 +122,7 @@ const LoginForm: FC = () => {
 				<Link
 					className={styles.link}
 					to={ROUTES.SING_UP}
-          onClick={() => dispatch(setIsError(false))}
+					onClick={() => dispatch(setIsError(false))}
 				>
 					Создать аккаунт
 				</Link>

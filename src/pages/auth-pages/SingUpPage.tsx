@@ -1,6 +1,6 @@
+import styles from "./AuthPage.module.scss";
 import RegisterForm from "components/ui/forms/AuthForm/RegisterForm/RegisterForm";
 import { FC } from "react";
-import styles from "./AuthPage.module.scss";
 
 const SingUpPage: FC = () => {
 	return (

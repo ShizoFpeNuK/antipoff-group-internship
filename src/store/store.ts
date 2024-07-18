@@ -1,9 +1,9 @@
-import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import clientReducer from "./reducers/ClientSlice";
 import usersLikeReducer from "./reducers/UsersLikeSlice";
 import { ourTeamApi } from "services/our-team.service";
 import { authMiddleware } from "./middlewares/auth.middleware";
 import { usersLikeMiddleware } from "./middlewares/user-likes.middleware";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
 
 const rootReducer = combineReducers({
 	clientReducer,

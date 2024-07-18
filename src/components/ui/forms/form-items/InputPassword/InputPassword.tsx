@@ -1,7 +1,7 @@
 import styles from "./InputPassword.module.scss";
-import { FC, InputHTMLAttributes, useEffect, useRef, useState } from "react";
-import { ReactComponent as EyeOffIcon } from "assets/svg/eye-off.svg";
 import { ReactComponent as EyeOnIcon } from "assets/svg/eye-on.svg";
+import { ReactComponent as EyeOffIcon } from "assets/svg/eye-off.svg";
+import { FC, InputHTMLAttributes, useEffect, useRef, useState } from "react";
 
 interface InputPasswordProps extends InputHTMLAttributes<HTMLInputElement> {
 	label?: string;

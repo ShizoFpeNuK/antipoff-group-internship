@@ -1,6 +1,6 @@
+import styles from "./AuthPage.module.scss";
 import LoginForm from "components/ui/forms/AuthForm/LoginForm/LoginForm";
 import { FC } from "react";
-import styles from "./AuthPage.module.scss";
 
 const SingInPage: FC = () => {
 	return (

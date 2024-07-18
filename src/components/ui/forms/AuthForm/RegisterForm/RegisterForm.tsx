@@ -1,42 +1,37 @@
-import Input from "components/ui/forms/form-items/Input/Input";
-import InputPassword from "components/ui/forms/form-items/InputPassword/InputPassword";
 import styles from "./RegisterForm.module.scss";
-import { ChangeEventHandler, FC, FormEventHandler, useEffect, useState } from "react";
-import MainButton from "components/ui/buttons/MainButton/MainButton";
-import { RULES_EMAIL, RULES_FULL_NAME, RULES_PASSWORD } from "utils/rules/form-rules";
-import { MESSAGE_ERROR } from "utils/rules/message-rules";
-import { Link, useNavigate } from "react-router-dom";
-import { ROUTES } from "utils/routes";
-import { useAppDispatch, useAppSelector } from "hooks/redux";
-import { clientRegister } from "store/actions/ActionCreators";
+import Input from "components/ui/forms/form-items/Input/Input";
 import MainLoader from "components/ui/loaders/MainLoader/MainLoader";
+import MainButton from "components/ui/buttons/MainButton/MainButton";
+import InputPassword from "components/ui/forms/form-items/InputPassword/InputPassword";
+import { ROUTES } from "utils/routes";
 import { clientSlice } from "store/reducers/ClientSlice";
+import { MESSAGE_ERROR } from "utils/rules/message-rules";
+import { clientRegister } from "store/actions/client.actions";
+import { Link, useNavigate } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "hooks/redux";
+import { ErrorsForm, ValuesForm } from "utils/types/form.type";
+import { RULES_EMAIL, RULES_FULL_NAME, RULES_PASSWORD } from "utils/rules/form-rules";
+import { ChangeEventHandler, FC, FormEventHandler, useEffect, useState } from "react";
 
-interface ValuesForm<T> {
-	name: T;
-	email: T;
-	password: T;
-	confirm_password: T;
-}
+type FormKeys = "email" | "password" | "name" | "confirm_password";
 
-const defaultValues: ValuesForm<string> = {
+const defaultValues: ValuesForm<FormKeys> = {
 	name: "",
 	email: "",
 	password: "",
 	confirm_password: "",
 };
 
-const defaultErrors: ValuesForm<boolean> = {
-	name: false,
-	email: false,
-	password: false,
-	confirm_password: false,
+const defaultErrors: ErrorsForm<FormKeys> = {
+	name: { error: false, message: "" },
+	email: { error: false, message: "" },
+	password: { error: false, message: "" },
+	confirm_password: { error: false, message: "" },
 };
 
 const RegisterForm: FC = () => {
-	const [values, setValues] = useState<ValuesForm<string>>(defaultValues);
-	const [errors, setErrors] = useState<ValuesForm<boolean>>(defaultErrors);
-	const [messages, setMessages] = useState<ValuesForm<string>>(defaultValues);
+	const [values, setValues] = useState<ValuesForm<FormKeys>>(defaultValues);
+	const [errors, setErrors] = useState<ErrorsForm<FormKeys>>(defaultErrors);
 	const { client, isLoading, isError } = useAppSelector((state) => state.clientReducer);
 	const { setIsError } = clientSlice.actions;
 	const navigate = useNavigate();
@@ -49,54 +44,52 @@ const RegisterForm: FC = () => {
 	const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
 		e.preventDefault();
 		const err = { ...errors };
-		const mes = { ...messages };
 
 		if (!values.name) {
-			mes.name = MESSAGE_ERROR.REQUIRED;
-			err.name = true;
+			err.name.message = MESSAGE_ERROR.REQUIRED;
+			err.name.error = true;
 		} else if (!RULES_FULL_NAME.pattern.value.test(values.name)) {
-			mes.name = RULES_FULL_NAME.pattern.message;
-			err.name = true;
+			err.name.message = RULES_FULL_NAME.pattern.message;
+			err.name.error = true;
 		} else {
-			err.name = false;
+			err.name.error = false;
 		}
 
 		if (!values.email) {
-			mes.email = MESSAGE_ERROR.REQUIRED;
-			err.email = true;
+			err.email.message = MESSAGE_ERROR.REQUIRED;
+			err.email.error = true;
 		} else if (!RULES_EMAIL.pattern.value.test(values.email)) {
-			mes.email = RULES_EMAIL.pattern.message;
-			err.email = true;
+			err.email.message = RULES_EMAIL.pattern.message;
+			err.email.error = true;
 		} else {
-			err.email = false;
+			err.email.error = false;
 		}
 
 		if (!values.password) {
-			mes.password = MESSAGE_ERROR.REQUIRED;
-			err.password = true;
+			err.password.message = MESSAGE_ERROR.REQUIRED;
+			err.password.error = true;
 		} else if (RULES_PASSWORD.minLength.value > values.password.length) {
-			mes.password = RULES_PASSWORD.minLength.message;
-			err.password = true;
+			err.password.message = RULES_PASSWORD.minLength.message;
+			err.password.error = true;
 		} else if (!RULES_PASSWORD.pattern.value.test(values.password)) {
-			mes.password = RULES_PASSWORD.pattern.message;
-			err.password = true;
+			err.password.message = RULES_PASSWORD.pattern.message;
+			err.password.error = true;
 		} else {
-			err.password = false;
+			err.password.error = false;
 		}
 
 		if (!values.confirm_password) {
-			mes.confirm_password = MESSAGE_ERROR.REQUIRED;
-			err.confirm_password = true;
+			err.confirm_password.message = MESSAGE_ERROR.REQUIRED;
+			err.confirm_password.error = true;
 		} else if (values.password !== values.confirm_password) {
-			mes.confirm_password = MESSAGE_ERROR.CONFIRM_PASSWORD;
-			err.confirm_password = true;
+			err.confirm_password.message = MESSAGE_ERROR.CONFIRM_PASSWORD;
+			err.confirm_password.error = true;
 		} else {
-			err.confirm_password = false;
+			err.confirm_password.error = false;
 		}
 
 		setErrors(err);
-		setMessages(mes);
-		const isNotError = Object.values(err).every((e) => !e);
+		const isNotError = Object.values(err).every((e) => !e.error);
 
 		if (isNotError) {
 			dispatch(
@@ -123,12 +116,12 @@ const RegisterForm: FC = () => {
 			noValidate
 			autoComplete="on"
 		>
-      {isLoading && (
+			{isLoading && (
 				<div className={styles.overlay}>
 					<MainLoader size={100} />
 				</div>
 			)}
-      
+
 			<div className={styles.wrapper}>
 				<h2 className="root_h2">Регистрация</h2>
 				<Input
@@ -140,7 +133,7 @@ const RegisterForm: FC = () => {
 					required
 					autoComplete="name"
 					onChange={handleChange}
-					textError={errors.name ? messages.name : ""}
+					textError={errors.name.error ? errors.name.message : ""}
 				/>
 				<Input
 					name="email"
@@ -151,7 +144,7 @@ const RegisterForm: FC = () => {
 					autoComplete="email"
 					required
 					onChange={handleChange}
-					textError={errors.email ? messages.email : ""}
+					textError={errors.email.error ? errors.email.message : ""}
 				/>
 				<InputPassword
 					name="password"
@@ -159,26 +152,26 @@ const RegisterForm: FC = () => {
 					required
 					autoComplete="off"
 					onChange={handleChange}
-          placeholder="*******"
-					textError={errors.password ? messages.password : ""}
+					placeholder="*******"
+					textError={errors.password.error ? errors.password.message : ""}
 				/>
 				<InputPassword
 					name="confirm_password"
 					label="Подтвердите пароль"
 					required
 					autoComplete="off"
-          placeholder="*******"
+					placeholder="*******"
 					onChange={handleChange}
-					textError={errors.confirm_password ? messages.confirm_password : ""}
+					textError={errors.confirm_password.error ? errors.confirm_password.message : ""}
 				/>
-        {isError && <p className={styles.errorSubmit}>Не существует текущего пользователя </p>}
+				{isError && <p className={styles.errorSubmit}>Не существует текущего пользователя </p>}
 			</div>
 
 			<div className={styles.buttons}>
 				<Link
 					className={styles.link}
 					to={ROUTES.SING_IN}
-          onClick={() => dispatch(setIsError(false))}
+					onClick={() => dispatch(setIsError(false))}
 				>
 					Уже есть аккаунт?
 				</Link>

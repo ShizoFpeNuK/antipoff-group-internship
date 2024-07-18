@@ -1,7 +1,7 @@
+import styles from "./ErrorPage.module.scss";
 import { FC } from "react";
 import { Link } from "react-router-dom";
 import { ROUTES } from "utils/routes";
-import styles from "./ErrorPage.module.scss";
 
 interface ErrorPageProps {
 	title?: string;

@@ -1,17 +1,17 @@
 import MainButton from "components/ui/buttons/MainButton/MainButton";
 import styles from "./HeaderUser.module.scss";
-import { ChangeEventHandler, FC, useRef } from "react";
-import { useAppDispatch } from "hooks/redux";
-import { clientLogout } from "store/actions/ActionCreators";
 import { IUser } from "models/our-team.model";
-import { useNavigate } from "react-router-dom";
 import { ROUTES } from "utils/routes";
+import { IClient } from "models/client.model";
 import { ourTeamApi } from "services/our-team.service";
+import { useNavigate } from "react-router-dom";
+import { clientLogout } from "store/actions/client.actions";
+import { useAppDispatch } from "hooks/redux";
+import { useResizeWidth } from "hooks/useResizeWidth";
 import { ReactComponent as ExitIcon } from "assets/svg/exit.svg";
 import { ReactComponent as BackIcon } from "assets/svg/arrow.svg";
-import { useResizeWidth } from "hooks/useResizeWidth";
 import { ReactComponent as EditIcon } from "assets/svg/edit.svg";
-import { IClient } from "models/client.model";
+import { ChangeEventHandler, FC, useRef } from "react";
 
 interface HeaderUserProps {
 	user: IUser;

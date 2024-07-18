@@ -1,7 +1,7 @@
-import { defer, json, LoaderFunctionArgs, Params } from "react-router-dom";
-import { ourTeamApi } from "services/our-team.service";
 import { appStore } from "store/store";
+import { ourTeamApi } from "services/our-team.service";
 import { IErrorResponse } from "utils/types/error-response.type";
+import { defer, json, LoaderFunctionArgs, Params } from "react-router-dom";
 
 export const teamLoader = ({ request }: LoaderFunctionArgs, countPerPage?: number) => {
 	const query = new URL(request.url).searchParams;

@@ -1,6 +1,6 @@
+import { RootState } from "store/store";
 import { Middleware } from "@reduxjs/toolkit";
 import { usersLikeSlice } from "store/reducers/UsersLikeSlice";
-import { RootState } from "store/store";
 import { NAME_LOCALSTORAGE } from "utils/helpers/name-localStorage";
 
 export const usersLikeMiddleware: Middleware<{}, RootState> = (store) => (next) => (action) => {
