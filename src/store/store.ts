@@ -11,11 +11,13 @@ const rootReducer = combineReducers({
 	[ourTeamApi.reducerPath]: ourTeamApi.reducer,
 });
 
+const isDevTools = process.env.NODE_ENV === "development";
+
 export const appStore = configureStore({
 	reducer: rootReducer,
 	middleware: (getDefaultMiddleware) =>
 		getDefaultMiddleware().concat(ourTeamApi.middleware, authMiddleware, usersLikeMiddleware),
-	devTools: true,
+	devTools: isDevTools,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
